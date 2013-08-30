@@ -3,3 +3,7 @@ jdk:
   - oraclejdk7
   - openjdk7
   - openjdk6
+  
+env:
+  global:
+    - COVERALL_TOKEN=ZMYgOPCIYmiUfhHt7DTP4oux32JJis9TE6JCi55JCKfOLSMkTQ/Q63kKZONrRpl6NnBgKZtGYNUAbFxaMT6/vdZ4DXLUttl6P30VpXwszo+ziWat2KZgKHdu3npYDkPcH4w/LeWmE7ey9mQgBDUKuDvC/T2dy+/zDXfPVydU/bU=
