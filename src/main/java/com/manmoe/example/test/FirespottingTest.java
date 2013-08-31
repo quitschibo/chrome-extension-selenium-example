@@ -13,6 +13,8 @@ import static org.testng.Assert.assertTrue;
  * @author Manuel Möhlmann <mail@manmoe.com>
  */
 public class FirespottingTest extends AbstractChromeExtensionTest {
+	private static final String EXTENSION_NAME_FROM_MANIFEST =  "Firespotting! Interesting Ideas, Every Day!";
+
 	/**
 	 * This is our testmodel. So we don't get lost in details, how to get some elements.
 	 */
@@ -24,7 +26,7 @@ public class FirespottingTest extends AbstractChromeExtensionTest {
 	 */
 	@BeforeClass
 	public void setUp() {
-		this.chromeExtension = new ChromeExtension(getWebDriver(), "Firespotting! Interesting Ideas, Every Day!");
+		this.chromeExtension = new ChromeExtension(getWebDriver(), EXTENSION_NAME_FROM_MANIFEST);
 	}
 
 	/**
