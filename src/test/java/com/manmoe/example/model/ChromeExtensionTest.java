@@ -12,6 +12,8 @@ import static org.testng.Assert.assertEquals;
 
 /**
  * Tests the ChromeExtension model.
+ *
+ * @author Manuel Möhlmann <mail@manmoe.com>
  */
 public class ChromeExtensionTest {
 	/**

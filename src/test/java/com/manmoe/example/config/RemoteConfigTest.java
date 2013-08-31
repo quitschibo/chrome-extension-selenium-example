@@ -11,6 +11,8 @@ import static org.mockito.Mockito.*;
 
 /**
  * Tests the RemoteConfig
+ *
+ * @author Manuel Möhlmann <mail@manmoe.com>
  */
 public class RemoteConfigTest {
 	// our object under test
