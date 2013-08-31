@@ -7,4 +7,4 @@ jdk:
 matrix:
   include:
     - jdk: oraclejdk7
-      gemfile: after_success: "mvn jacoco:report coveralls:jacoco"
+      after_success: "mvn jacoco:report coveralls:jacoco"
