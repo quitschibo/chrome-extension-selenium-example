@@ -1,4 +1,4 @@
-script: "mvn test jacoco:report coveralls:jacoco"
+after_success: "mvn jacoco:report coveralls:jacoco"
 
 language: java
 jdk:
