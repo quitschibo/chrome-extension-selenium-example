@@ -9,7 +9,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
  * @author Manuel Möhlmann <mail@manmoe.com>
  */
 public abstract class AbstractChromeExtensionTest {
-	private RemoteDriverConfig remoteDriverConfig = new RemoteDriverConfig();
+	protected RemoteDriverConfig remoteDriverConfig = new RemoteDriverConfig();
 
 	/**
 	 * We will provide the WebDriver for the test, so they don't have to care about.
