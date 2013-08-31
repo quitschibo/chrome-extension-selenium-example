@@ -16,7 +16,7 @@ public class FirespottingTest extends AbstractChromeExtensionTest {
 	/**
 	 * This is our testmodel. So we don't get lost in details, how to get some elements.
 	 */
-	private ChromeExtension chromeExtension;
+	protected ChromeExtension chromeExtension;
 
 	// -------------------- Setting up and down the test environment
 	/**
@@ -32,7 +32,7 @@ public class FirespottingTest extends AbstractChromeExtensionTest {
 	 */
 	@AfterClass
 	public void tearDown() {
-		chromeExtension.tearDown();
+		this.chromeExtension.tearDown();
 	}
 
 	// -------------------- Tests for the extension
