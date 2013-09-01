@@ -13,11 +13,11 @@ import static org.testng.Assert.*;
  *
  * @author Manuel Möhlmann <mail@manmoe.com>
  */
-public class FirespottingTestTest {
+public class FirespottingITTest {
 	/**
 	 * Our test object.
 	 */
-	private FirespottingTest firespottingTest;
+	private FirespottingIT firespottingIT;
 
 	private PopupPage popupPage = mock(PopupPage.class);
 
@@ -26,7 +26,7 @@ public class FirespottingTestTest {
 	 */
 	@BeforeMethod
 	public void setUp() {
-		this.firespottingTest = spy(new FirespottingTest());
+		this.firespottingIT = spy(new FirespottingIT());
 	}
 
 	/**
@@ -36,13 +36,13 @@ public class FirespottingTestTest {
 	public void testSetUp() {
 		RemoteWebDriver remoteWebDriver = mock(RemoteWebDriver.class);
 
-		doReturn(remoteWebDriver).when(firespottingTest).getWebDriver();
+		doReturn(remoteWebDriver).when(firespottingIT).getWebDriver();
 
 		// run test
-		firespottingTest.setUp();
+		firespottingIT.setUp();
 
 		// check, if all went well
-		assertNotNull(firespottingTest.popupPage);
+		assertNotNull(firespottingIT.popupPage);
 	}
 
 	/**
@@ -51,10 +51,10 @@ public class FirespottingTestTest {
 	@Test
 	public void testTearDown() {
 		// insert mock to test object
-		firespottingTest.popupPage = this.popupPage;
+		firespottingIT.popupPage = this.popupPage;
 
 		// run test method
-		firespottingTest.tearDown();
+		firespottingIT.tearDown();
 
 		// is the method called to tear down correctly?
 		verify(popupPage, atLeastOnce()).tearDown();
@@ -65,10 +65,10 @@ public class FirespottingTestTest {
 	 */
 	@Test
 	public void testIsInstalled() {
-		firespottingTest.popupPage = this.popupPage;
+		firespottingIT.popupPage = this.popupPage;
 
 		when(popupPage.getId()).thenReturn("testId");
 
-		firespottingTest.isInstalled();
+		firespottingIT.isInstalled();
 	}
 }

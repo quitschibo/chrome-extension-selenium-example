@@ -14,7 +14,7 @@ import static org.testng.Assert.assertTrue;
  *
  * @author Manuel Möhlmann <mail@manmoe.com>
  */
-public class FirespottingTest extends AbstractChromeExtensionTest {
+public class FirespottingIT extends AbstractChromeExtensionTest {
 	private static final String EXTENSION_NAME_FROM_MANIFEST =  "Firespotting! Interesting Ideas, Every Day!";
 
 	/**

@@ -25,7 +25,7 @@ public class AbstractChromeExtensionTestTest {
 
 		when(remoteDriverConfig.buildRemoteDriver()).thenReturn(webDriver);
 
-		AbstractChromeExtensionTest testObject = new FirespottingTest();
+		AbstractChromeExtensionTest testObject = new FirespottingIT();
 		 // we insert our testmock in testObject
 		testObject.remoteDriverConfig = remoteDriverConfig;
 
