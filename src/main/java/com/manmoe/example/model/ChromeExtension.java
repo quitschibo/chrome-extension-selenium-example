@@ -28,6 +28,11 @@ public class ChromeExtension {
 	private RemoteWebDriver driver;
 
 	/**
+	 * This is the id our extension has on the remote browser.
+	 */
+	private String extensionId;
+
+	/**
 	 * We need the webdriver and the name of the extension you want to test. Have a look in your manifest, if you are
 	 * not sure.
 	 *
@@ -47,6 +52,11 @@ public class ChromeExtension {
 	 * TODO: I have to do it with xpath. That's really crappy at the moment ;)
 	 */
 	public String getId() {
+		if (extensionId != null) {
+			// if we have already the id, there is no need to do it twice.
+			return extensionId;
+		}
+
 		// on this site every extension will be shown
 		driver.get(EXTENSION_INSPECT_PAGE);
 
@@ -63,6 +73,7 @@ public class ChromeExtension {
 					// removing all "overhead"
 					part = part.replace(EXTENSION_URL_PROTOCOL, "");
 					part = part.replace(EXTENSION_SITE_BACKGROUND_URL, "");
+					extensionId = part;
 					return part;
 				}
 			}
@@ -70,6 +81,32 @@ public class ChromeExtension {
 
 		// we should not reach this line. If we reach it, that means our extension is not installed correctly.
 		return null;
+	}
+
+	/**
+	 * This method takes a page string (e.g. options.html) and navigates to this site.
+	 *
+	 * @param page The page we want to navigate to e.g. options.html
+	 */
+	public void navigateTo(String page) {
+		driver.get(EXTENSION_URL_PROTOCOL + getId() + "/" + page);
+	}
+
+	/**
+	 * Method for switching to the latest opened tab/window.
+	 */
+	public void switchToNewTab() {
+		int handleSize = driver.getWindowHandles().size();
+		driver.switchTo().window((String) driver.getWindowHandles().toArray()[handleSize - 1]);
+	}
+
+	/**
+	 * Returns the remoteWebDriver.
+	 *
+	 * @return remoteWebDriver
+	 */
+	public RemoteWebDriver getDriver() {
+		return this.driver;
 	}
 
 	/**
