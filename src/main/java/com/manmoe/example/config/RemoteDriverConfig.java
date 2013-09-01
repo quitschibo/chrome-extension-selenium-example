@@ -1,6 +1,7 @@
 package com.manmoe.example.config;
 
 import org.openqa.selenium.Platform;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -47,6 +48,17 @@ public class RemoteDriverConfig {
 		}
 		// should not happen.
 		throw new RuntimeException("Remote Driver could not been build properly, because of an malformed remote url");
+	}
+
+	/**
+	 * Builds a local driver for debugging issues.
+	 *
+	 * @return local driver with same configuration as remote driver
+	 */
+	public ChromeDriver buildLocalDriver() {
+		// it may be, that you must provide the path to the local driver here.
+		//System.setProperty("webdriver.chrome.driver", "");
+		return new ChromeDriver(desiredCapabilities);
 	}
 
 	/**
