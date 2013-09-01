@@ -5,6 +5,8 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 
 /**
  * This model is for testing the firespotting popup page.
+ *
+ * @author Manuel Möhlmann <mail@manmoe.com>
  */
 public class PopupPage extends ChromeExtension {
 	private static final String PAGE_NAME = "popup.html";
