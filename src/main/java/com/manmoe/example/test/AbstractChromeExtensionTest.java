@@ -1,6 +1,7 @@
 package com.manmoe.example.test;
 
 import com.manmoe.example.config.RemoteDriverConfig;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 /**
@@ -18,5 +19,13 @@ public abstract class AbstractChromeExtensionTest {
 	 */
 	public RemoteWebDriver getWebDriver() {
 		return remoteDriverConfig.buildRemoteDriver();
+	}
+
+	/**
+	 * Method for returning a local driver with same configuration as the remote driver
+	 * @return
+	 */
+	public ChromeDriver getLocalDriver() {
+		return remoteDriverConfig.buildLocalDriver();
 	}
 }
