@@ -41,8 +41,14 @@ public class RemoteDriverConfig {
 	 * @throws MalformedURLException If the remote URL is not appropriate
 	 */
 	public RemoteWebDriver buildRemoteDriver() {
+		String remoteUrl = System.getenv("REMOTE_DRIVER_URL");
+
+		if (remoteUrl == null) {
+			remoteUrl = REMOTE_URL;
+		}
+
 		try {
-			return new RemoteWebDriver(new URL(REMOTE_URL), desiredCapabilities);
+			return new RemoteWebDriver(new URL(remoteUrl), desiredCapabilities);
 		} catch (MalformedURLException e) {
 			System.out.println("Url for remote access is malformed. Please provide a valid URL.");
 		}
