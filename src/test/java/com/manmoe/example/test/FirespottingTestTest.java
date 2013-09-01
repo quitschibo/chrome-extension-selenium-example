@@ -1,7 +1,6 @@
 package com.manmoe.example.test;
 
-import com.manmoe.example.model.ChromeExtension;
-import org.mockito.Mock;
+import com.manmoe.example.model.PopupPage;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -20,7 +19,7 @@ public class FirespottingTestTest {
 	 */
 	private FirespottingTest firespottingTest;
 
-	private ChromeExtension chromeExtension = mock(ChromeExtension.class);
+	private PopupPage popupPage = mock(PopupPage.class);
 
 	/**
 	 *  Method for setting up the test environment.
@@ -43,7 +42,7 @@ public class FirespottingTestTest {
 		firespottingTest.setUp();
 
 		// check, if all went well
-		assertNotNull(firespottingTest.chromeExtension);
+		assertNotNull(firespottingTest.popupPage);
 	}
 
 	/**
@@ -52,13 +51,13 @@ public class FirespottingTestTest {
 	@Test
 	public void testTearDown() {
 		// insert mock to test object
-		firespottingTest.chromeExtension = this.chromeExtension;
+		firespottingTest.popupPage = this.popupPage;
 
 		// run test method
 		firespottingTest.tearDown();
 
 		// is the method called to tear down correctly?
-		verify(chromeExtension, atLeastOnce()).tearDown();
+		verify(popupPage, atLeastOnce()).tearDown();
 	}
 
 	/**
@@ -66,9 +65,9 @@ public class FirespottingTestTest {
 	 */
 	@Test
 	public void testIsInstalled() {
-		firespottingTest.chromeExtension = this.chromeExtension;
+		firespottingTest.popupPage = this.popupPage;
 
-		when(chromeExtension.getId()).thenReturn("testId");
+		when(popupPage.getId()).thenReturn("testId");
 
 		firespottingTest.isInstalled();
 	}

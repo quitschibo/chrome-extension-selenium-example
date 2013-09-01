@@ -1,10 +1,12 @@
 package com.manmoe.example.test;
 
-import com.manmoe.example.model.ChromeExtension;
+import com.manmoe.example.model.PopupPage;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertTrue;
 
 /**
@@ -18,7 +20,7 @@ public class FirespottingTest extends AbstractChromeExtensionTest {
 	/**
 	 * This is our testmodel. So we don't get lost in details, how to get some elements.
 	 */
-	protected ChromeExtension chromeExtension;
+	protected PopupPage popupPage;
 
 	// -------------------- Setting up and down the test environment
 	/**
@@ -26,7 +28,7 @@ public class FirespottingTest extends AbstractChromeExtensionTest {
 	 */
 	@BeforeClass
 	public void setUp() {
-		this.chromeExtension = new ChromeExtension(getWebDriver(), EXTENSION_NAME_FROM_MANIFEST);
+		this.popupPage = new PopupPage(getWebDriver(), EXTENSION_NAME_FROM_MANIFEST);
 	}
 
 	/**
@@ -34,7 +36,7 @@ public class FirespottingTest extends AbstractChromeExtensionTest {
 	 */
 	@AfterClass
 	public void tearDown() {
-		this.chromeExtension.tearDown();
+		this.popupPage.tearDown();
 	}
 
 	// -------------------- Tests for the extension
@@ -45,6 +47,78 @@ public class FirespottingTest extends AbstractChromeExtensionTest {
 	 */
 	@Test
 	public void isInstalled() {
-		assertTrue(chromeExtension.getId() != null, "We got null back. The extension is not installed properly");
+		assertTrue(popupPage.getId() != null, "We got null back. The extension is not installed properly");
+	}
+
+	/**
+	 * Test for checking the popup window.
+	 */
+	@Test
+	public void testPopup() {
+		popupPage.open();
+
+		// check title
+		assertEquals(popupPage.getTitle(), "Firespotting!");
+	}
+
+	/**
+	 * Clicks on every item and checks, if it loads.
+	 */
+	@Test
+	public void testEntry() {
+		popupPage.open();
+
+		// check if all 15 entries are there
+		for (int i = 1; i <= 15; i++) {
+			String linkText = popupPage.getEntryTitle(i);
+			assertNotNull(popupPage.getEntryTitle(i));
+			popupPage.clickOnEntryLink(linkText);
+			popupPage.getBack();
+		}
+
+	}
+
+	/**
+	 * Clicks on the issues link and checks, if it loads.
+	 */
+	@Test
+	public void testIssues() {
+		popupPage.open();
+
+		popupPage.getDriver().navigate().refresh();
+
+		popupPage.getIssues().click();
+
+		assertTrue(popupPage.getDriver().getTitle().startsWith("Issues · quitschibo/firespotting-chrome-extension"));
+	}
+
+	/**
+	 * Clicks on refresh link.
+	 *
+	 * @throws InterruptedException
+	 */
+	@Test
+	public void testRefresh() throws InterruptedException {
+		popupPage.open();
+
+		popupPage.getRefreshLink().click();
+
+		assertEquals(popupPage.getTitle(), "Firespotting!");
+	}
+
+	/**
+	 * Clicks on Options link.
+	 */
+	@Test
+	public void testOpenOptions() {
+		popupPage.open();
+
+		popupPage.getDriver().navigate().refresh();
+
+		popupPage.getOptionsLink().click();
+
+		popupPage.switchToNewTab();
+
+		assertEquals(popupPage.getTitle(), "Options");
 	}
 }
