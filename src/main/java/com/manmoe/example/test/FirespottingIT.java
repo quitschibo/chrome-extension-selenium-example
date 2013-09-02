@@ -1,7 +1,12 @@
 package com.manmoe.example.test;
 
+import com.google.common.base.Predicate;
 import com.manmoe.example.model.PopupPage;
+import com.sun.istack.internal.Nullable;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -103,9 +108,14 @@ public class FirespottingIT extends AbstractChromeExtensionTest {
 
 		popupPage.getRefreshLink().click();
 
-		// ok, we want to wait until it's fully loaded
-		popupPage.getDriver().wait(3000L);
+		WebDriverWait driverWait = new WebDriverWait(popupPage.getDriver(), 3L);
 
+		driverWait.until(new Predicate<WebDriver>() {
+			@Override
+			public boolean apply(@Nullable org.openqa.selenium.WebDriver webDriver) {
+				return popupPage.getTitle().equals("Firespotting!");
+			};
+		});
 		assertEquals(popupPage.getTitle(), "Firespotting!");
 	}
 
