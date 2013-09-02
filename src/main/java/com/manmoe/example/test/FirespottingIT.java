@@ -103,6 +103,9 @@ public class FirespottingIT extends AbstractChromeExtensionTest {
 
 		popupPage.getRefreshLink().click();
 
+		// ok, we want to wait until it's fully loaded
+		popupPage.getDriver().wait(3000L);
+
 		assertEquals(popupPage.getTitle(), "Firespotting!");
 	}
 
