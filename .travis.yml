@@ -13,7 +13,7 @@ matrix:
       after_success: "mvn jacoco:report coveralls:jacoco"
     - jdk: oraclejdk7
       script: mvn verify
-      env: PLATFORM=win8
+      env: PLATFORM=WIN8
     - jdk: oraclejdk7
       script: mvn verify
-      env: PLATFORM=linux
+      env: PLATFORM=LINUX
