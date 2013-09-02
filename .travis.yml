@@ -6,5 +6,6 @@ jdk:
 matrix:
   include:
     - jdk: oraclejdk7
-      after_success: "mvn jacoco:report coveralls:jacoco verify"
+      script: mvn test verify
+      after_success: "mvn jacoco:report coveralls:jacoco"
       secure: "bOaIYRw/IEDte06WCUq6vDcUmPpxT9wm2qXOSfXkYBKGlMHno0Nt7K1K2A8ZmhOHMPT2wbTm0+9IwdZ8kZDpf0Y47T39L7RImCEDz7bUZnI289wvKnNWaXClmmRye+uXQX8wIRrI31o44J654/0HcVwG9cyhTazR8wui1du3r60="
