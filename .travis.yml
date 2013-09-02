@@ -2,11 +2,12 @@ language: java
 jdk:
   - openjdk7
   - openjdk6
+
+env:
+  global:
+    - secure: "UrZFudXhrW886lyRe+gBN23z3AqyBbdtxO6+gh6sP8/SM7OVo1bzm7TDyV1HfddRcb+pWu8kkCmuTaGDkIAxEh1x/gzVnFAMki9qjnfFp1rxtRv3yirJtm608UTtpyVYhQGnTuSNP7Ypl6mOslsYj/G0c9Tj/u+ShqEEYRJG300="
   
 matrix:
   include:
     - jdk: oraclejdk7
       after_success: "mvn jacoco:report coveralls:jacoco"
-    - jdk: oraclejdk7
-      script: mvn verify
-      secure: "UrZFudXhrW886lyRe+gBN23z3AqyBbdtxO6+gh6sP8/SM7OVo1bzm7TDyV1HfddRcb+pWu8kkCmuTaGDkIAxEh1x/gzVnFAMki9qjnfFp1rxtRv3yirJtm608UTtpyVYhQGnTuSNP7Ypl6mOslsYj/G0c9Tj/u+ShqEEYRJG300="
