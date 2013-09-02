@@ -9,4 +9,4 @@ matrix:
       after_success: "mvn jacoco:report coveralls:jacoco"
     - jdk: oraclejdk7
       script: mvn verify
-      secure: "bOaIYRw/IEDte06WCUq6vDcUmPpxT9wm2qXOSfXkYBKGlMHno0Nt7K1K2A8ZmhOHMPT2wbTm0+9IwdZ8kZDpf0Y47T39L7RImCEDz7bUZnI289wvKnNWaXClmmRye+uXQX8wIRrI31o44J654/0HcVwG9cyhTazR8wui1du3r60="
+      secure: "UrZFudXhrW886lyRe+gBN23z3AqyBbdtxO6+gh6sP8/SM7OVo1bzm7TDyV1HfddRcb+pWu8kkCmuTaGDkIAxEh1x/gzVnFAMki9qjnfFp1rxtRv3yirJtm608UTtpyVYhQGnTuSNP7Ypl6mOslsYj/G0c9Tj/u+ShqEEYRJG300="
