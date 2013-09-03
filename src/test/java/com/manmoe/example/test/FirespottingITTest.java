@@ -1,9 +1,13 @@
 package com.manmoe.example.test;
 
+import bsh.util.Sessiond;
 import com.manmoe.example.model.PopupPage;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.remote.SessionId;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import us.monoid.web.AbstractContent;
+import us.monoid.web.Resty;
 
 import java.io.IOException;
 
@@ -49,19 +53,33 @@ public class FirespottingITTest {
 
 	/**
 	 * Check the tear down.
-	 *
-	 * @TODO: we have to modify this test!
 	 */
-	//@Test
+	@Test
 	public void testTearDown() throws IOException {
 		// insert mock to test object
 		firespottingIT.popupPage = this.popupPage;
+
+		// mock rest client
+		firespottingIT.restClient = mock(Resty.class);
+
+		// mock some objects for session key
+		RemoteWebDriver remoteWebDriver = mock(RemoteWebDriver.class);
+		SessionId sessionId = mock(SessionId.class);
+		when(popupPage.getDriver()).thenReturn(remoteWebDriver);
+		when(remoteWebDriver.getSessionId()).thenReturn(sessionId);
+		when(sessionId.toString()).thenReturn("72345863");
 
 		// run test method
 		firespottingIT.tearDown();
 
 		// is the method called to tear down correctly?
 		verify(popupPage, atLeastOnce()).tearDown();
+
+		// verify rest client actions
+		// @TODO: add better verification! (no more anyStrings; check the values!)
+		verify(firespottingIT.restClient, atLeastOnce()).authenticate(anyString(), anyString(), anyString().toCharArray());
+		verify(firespottingIT.restClient, atLeastOnce()).withHeader("Content-Type", "application/json");
+		verify(firespottingIT.restClient, atLeastOnce()).json(anyString(), any(AbstractContent.class));
 	}
 
 	/**
