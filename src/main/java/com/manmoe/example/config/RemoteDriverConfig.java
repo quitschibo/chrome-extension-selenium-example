@@ -87,12 +87,13 @@ public class RemoteDriverConfig {
 	 */
 	protected void buildDesiredCapabilities() {
 		DesiredCapabilities capabilities = createDesiredCapabilitiesForChrome();
+
 		// get Platform from environment
-		Platform platform = Platform.valueOf(System.getenv("PLATFORM"));
-		// set fallback
-		if (platform == null) {
-			platform = Platform.WINDOWS;
+		String platformString = System.getenv("PLATFORM");
+		if (platformString == null) {
+			platformString = Platform.WINDOWS.toString();
 		}
+		Platform platform = Platform.valueOf(platformString);
 		capabilities.setCapability("platform", platform);
 
 		// if chrome options are not build yet, we have to handle it
