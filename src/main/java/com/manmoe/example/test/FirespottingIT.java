@@ -4,13 +4,21 @@ import com.google.common.base.Predicate;
 import com.manmoe.example.model.PopupPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import us.monoid.web.Resty;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertTrue;
+import static us.monoid.web.Resty.content;
+import static us.monoid.web.Resty.put;
 
 /**
  * Just an example test.
@@ -38,8 +46,29 @@ public class FirespottingIT extends AbstractChromeExtensionTest {
 	 * We tell the remote selenium server here, that we have finished.
 	 */
 	@AfterClass
-	public void tearDown() {
+	public void tearDown(ITestResult testResult) throws IOException {
 		this.popupPage.tearDown();
+
+		// send saucelabs the result of the tests
+		// @TODO should be use @AfterSuite in future
+		String sauceUsername = System.getenv("SAUCE_USERNAME");
+		String sauceAccessKey = System.getenv("SAUCE_ACCESS_KEY");
+
+		if (sauceUsername != null && sauceAccessKey != null) {
+			String jobId = popupPage.getDriver().getSessionId().toString();
+
+			// set job properties
+			Map<String, Object> sauceJob = new HashMap<String, Object>();
+			sauceJob.put("name", "Firespotting! " + System.getenv("PLATFORM") + " Test");
+
+			Resty restClient = new Resty();
+			String url = "http://" + sauceUsername + ":" + sauceAccessKey + "@saucelabs.com/rest/v1/" + sauceUsername + "/jobs/" + sauceJob;
+			if (testResult.isSuccess()) {
+				restClient.json(url, put(content("{\"passed\": true}")));
+			} else {
+				restClient.json(url, put(content("{\"passed\": true}")));
+			}
+		}
 	}
 
 	// -------------------- Tests for the extension
