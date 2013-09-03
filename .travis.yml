@@ -19,3 +19,12 @@ matrix:
     - jdk: oraclejdk7
       script: mvn verify
       env: PLATFORM=LINUX
+    - jdk: oraclejdk7
+      script: mvn verify
+      env: PLATFORM=MAC
+    - jdk: oraclejdk7
+      script: mvn verify
+      env: PLATFORM=XP
+    - jdk: oraclejdk7
+      script: mvn verify
+      env: PLATFORM=VISTA
