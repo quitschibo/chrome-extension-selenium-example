@@ -6,13 +6,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import us.monoid.web.Resty;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
@@ -33,6 +32,11 @@ public class FirespottingIT extends AbstractChromeExtensionTest {
 	 */
 	protected PopupPage popupPage;
 
+	/**
+	 * We set it initially == true, so we can &= each test method result.
+	 */
+	protected boolean testResult = true;
+
 	// -------------------- Setting up and down the test environment
 	/**
 	 * Method for setting up the test environment.
@@ -46,29 +50,35 @@ public class FirespottingIT extends AbstractChromeExtensionTest {
 	 * We tell the remote selenium server here, that we have finished.
 	 */
 	@AfterClass
-	public void tearDown(ITestResult testResult) throws IOException {
-		this.popupPage.tearDown();
-
+	public void tearDown() throws IOException {
 		// send saucelabs the result of the tests
 		// @TODO should be use @AfterSuite in future
 		String sauceUsername = System.getenv("SAUCE_USERNAME");
 		String sauceAccessKey = System.getenv("SAUCE_ACCESS_KEY");
+		String platformString = System.getenv("PLATFORM");
+		String buildNr = System.getenv("TRAVIS_BUILD_NUMBER");
 
-		if (sauceUsername != null && sauceAccessKey != null) {
+		if (sauceUsername != null && sauceAccessKey != null && platformString != null) {
 			String jobId = popupPage.getDriver().getSessionId().toString();
 
-			// set job properties
-			Map<String, Object> sauceJob = new HashMap<String, Object>();
-			sauceJob.put("name", "Firespotting! " + System.getenv("PLATFORM") + " Test");
-
 			Resty restClient = new Resty();
-			String url = "http://" + sauceUsername + ":" + sauceAccessKey + "@saucelabs.com/rest/v1/" + sauceUsername + "/jobs/" + sauceJob;
-			if (testResult.isSuccess()) {
-				restClient.json(url, put(content("{\"passed\": true}")));
-			} else {
-				restClient.json(url, put(content("{\"passed\": true}")));
-			}
+			String url = "https://saucelabs.com/rest/v1/" + sauceUsername + "/jobs/" + jobId;
+			restClient.authenticate("https://saucelabs.com", sauceUsername, sauceAccessKey.toCharArray());
+			restClient.withHeader("Content-Type", "application/json");
+			restClient.json(url, put(content("{\"passed\": " + testResult + ", \"name\": \"Firespotting! " + platformString + " Test\", \"build\": \"" + buildNr + "\"}")));
 		}
+
+		this.popupPage.tearDown();
+	}
+
+	/**
+	 * We want to know, if every method has succeeded. If one method fails, testResult == false.
+	 *
+	 * @param result Results of all testMethods.
+	 */
+	@AfterMethod(alwaysRun = true)
+	public void report(ITestResult result)  {
+		testResult &= result.isSuccess();
 	}
 
 	// -------------------- Tests for the extension
