@@ -6,6 +6,8 @@ jdk:
 env:
   global:
     - secure: "VgUhs+4iS0ASQZCsogNd7eXkU4oO7c+X/Vkb4/4loZHVsICfSlCYuJBGgKLgDRxE3LrIBNHx+FFYQot9W0hWlPRWFEG0kWWb359jG3d8qys2Jg/vit2iyqoEu5O4Q552Ez5/uHBRMShH732HRL37DrPSSpXWkJpzJpsoKlpiSw8="
+    - secure: "LxXabw1cLWAWDx+95b9tUJirMFTMyf8zK/d5+GXesT2Hp3lFI2QC8BVeR7QwkUzXiyp3GJMmnScUDluyAFWawIlKNo/YMpDZ+ao8jc9n0krvz/1YLjv4O+eCxwNGVLvwctptWrfYsxs2t7xjSBHmJ4nh24k7/CMmUoEifRMWhTo="
+    - secure: "Vyn6f8To6J9r9O14bgzxPGXRlzaMyplrDRmSMrDttJ+cg/g9kqk4fn+IOvgNc0lC8D1SNhB823hgWP2IXQKqKJoFSkjQDQFeLeHXgx9L2VV8JLw5CvovBN1KamYUkcFXr06b2jUCKNNiJXXrdJXcstlzF3Z+vRCGbscbGm+0FXE="
   
 matrix:
   include:
