@@ -37,6 +37,11 @@ public class FirespottingIT extends AbstractChromeExtensionTest {
 	 */
 	protected boolean testResult = true;
 
+	/**
+	 * Our testClient to send the results to sauceLabs
+	 */
+	protected Resty restClient = new Resty();
+
 	// -------------------- Setting up and down the test environment
 	/**
 	 * Method for setting up the test environment.
@@ -61,7 +66,6 @@ public class FirespottingIT extends AbstractChromeExtensionTest {
 		if (sauceUsername != null && sauceAccessKey != null && platformString != null) {
 			String jobId = popupPage.getDriver().getSessionId().toString();
 
-			Resty restClient = new Resty();
 			String url = "https://saucelabs.com/rest/v1/" + sauceUsername + "/jobs/" + jobId;
 			restClient.authenticate("https://saucelabs.com", sauceUsername, sauceAccessKey.toCharArray());
 			restClient.withHeader("Content-Type", "application/json");
