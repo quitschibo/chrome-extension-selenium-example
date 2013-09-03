@@ -75,11 +75,13 @@ public class FirespottingITTest {
 		// is the method called to tear down correctly?
 		verify(popupPage, atLeastOnce()).tearDown();
 
-		// verify rest client actions
-		// @TODO: add better verification! (no more anyStrings; check the values!)
-		verify(firespottingIT.restClient, atLeastOnce()).authenticate(anyString(), anyString(), anyString().toCharArray());
-		verify(firespottingIT.restClient, atLeastOnce()).withHeader("Content-Type", "application/json");
-		verify(firespottingIT.restClient, atLeastOnce()).json(anyString(), any(AbstractContent.class));
+		if (System.getenv("SAUCE_USERNAME") != null && System.getenv("SAUCE_ACCESS_KEY") != null && System.getenv("PLATFORM") != null) {
+			// verify rest client actions if environment variables are set
+			// @TODO: add better verification! (no more anyStrings; check the values!)
+			verify(firespottingIT.restClient, atLeastOnce()).authenticate(anyString(), anyString(), anyString().toCharArray());
+			verify(firespottingIT.restClient, atLeastOnce()).withHeader("Content-Type", "application/json");
+			verify(firespottingIT.restClient, atLeastOnce()).json(anyString(), any(AbstractContent.class));
+		}
 	}
 
 	/**
