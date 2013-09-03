@@ -2,6 +2,7 @@ chrome-extension-selenium-example
 =================================
 [![Build Status](https://travis-ci.org/quitschibo/chrome-extension-selenium-example.png?branch=master)](https://travis-ci.org/quitschibo/chrome-extension-selenium-example)
 [![Coverage Status](https://coveralls.io/repos/quitschibo/chrome-extension-selenium-example/badge.png?branch=master)](https://coveralls.io/r/quitschibo/chrome-extension-selenium-example?branch=master)
+[![Dependency Status](https://www.versioneye.com/user/projects/522618b2632bac0677001391/badge.png)](https://www.versioneye.com/user/projects/522618b2632bac0677001391)
 
 ### Hey, I wanna check out. What I have to do?
 
