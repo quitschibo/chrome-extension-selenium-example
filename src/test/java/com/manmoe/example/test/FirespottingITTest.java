@@ -1,6 +1,5 @@
 package com.manmoe.example.test;
 
-import bsh.util.Sessiond;
 import com.manmoe.example.model.PopupPage;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.remote.SessionId;
