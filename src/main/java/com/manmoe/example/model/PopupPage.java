@@ -72,7 +72,6 @@ public class PopupPage extends ChromeExtension {
 
 	/**
 	 * Returns the refresh link
-	 * @return
 	 */
 	public WebElement getRefreshLink() {
 		return getDriver().findElementByXPath("//*[@id=\"refresh\"]");
@@ -80,7 +79,6 @@ public class PopupPage extends ChromeExtension {
 
 	/**
 	 * Returns the Options link
-	 * @return
 	 */
 	public WebElement getOptionsLink() {
 		return getDriver().findElementByXPath("//*[@id=\"options\"]");

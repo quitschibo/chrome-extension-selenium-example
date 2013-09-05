@@ -14,8 +14,6 @@ public abstract class AbstractChromeExtensionTest {
 
 	/**
 	 * We will provide the WebDriver for the test, so they don't have to care about.
-	 *
-	 * @return
 	 */
 	public RemoteWebDriver getWebDriver() {
 		return remoteDriverConfig.buildRemoteDriver();
@@ -23,7 +21,6 @@ public abstract class AbstractChromeExtensionTest {
 
 	/**
 	 * Method for returning a local driver with same configuration as the remote driver
-	 * @return
 	 */
 	public ChromeDriver getLocalDriver() {
 		return remoteDriverConfig.buildLocalDriver();
