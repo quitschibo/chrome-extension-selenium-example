@@ -10,7 +10,7 @@ chrome-extension-selenium-example
 This example is written as Selenium test with remote server. It works best with an https://saucelabs.com/ account. So,
 get an account there and add the remote url in the [RemoteDriverConfig](https://github.com/quitschibo/chrome-extension-selenium-example/blob/master/src/main/java/com/manmoe/example/config/RemoteDriverConfig.java#L22).
 
-That's all. You can now run the example with `maven verify` and see the test working in your saucelabs account. It will test a small chrome extension for firespotting; you can find the test package [here](https://github.com/quitschibo/chrome-extension-selenium-example/tree/master/src/main/resources).
+That's all. You can now run the example with `mvn verify` and see the test working in your saucelabs account. It will test a small chrome extension for firespotting; you can find the test package [here](https://github.com/quitschibo/chrome-extension-selenium-example/tree/master/src/main/resources).
 
 ### Great - but I want to run my own extension.
 
