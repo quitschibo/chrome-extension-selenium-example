@@ -63,9 +63,11 @@ public class FirespottingIT extends AbstractChromeExtensionTest {
 		String platformString = System.getenv("PLATFORM");
 		String buildNr = System.getenv("TRAVIS_BUILD_NUMBER");
 
+		// if sauceLabs is used, the results should be transmitted
 		if (sauceUsername != null && sauceAccessKey != null && platformString != null) {
 			String jobId = popupPage.getDriver().getSessionId().toString();
 
+			// build sauceLabs result
 			String url = "https://saucelabs.com/rest/v1/" + sauceUsername + "/jobs/" + jobId;
 			restClient.authenticate("https://saucelabs.com", sauceUsername, sauceAccessKey.toCharArray());
 			restClient.withHeader("Content-Type", "application/json");
