@@ -26,6 +26,12 @@ import static us.monoid.web.Resty.put;
  */
 public class FirespottingIT extends AbstractChromeExtensionTest {
 	private static final String EXTENSION_NAME_FROM_MANIFEST = "Firespotting! Interesting Ideas, Every Day!";
+	public static final long TIME_TO_WAIT_FOR_REFRESH = 3L;
+
+	/**
+	 * sum of entries to be shown on popup page
+	 */
+	public static final int ENTRY_LIST_LENGTH = 15;
 
 	/**
 	 * This is our testmodel. So we don't get lost in details, how to get some elements.
@@ -116,8 +122,8 @@ public class FirespottingIT extends AbstractChromeExtensionTest {
 	public void testEntry() {
 		popupPage.open();
 
-		// check if all 15 entries are there
-		for (int i = 1; i <= 15; i++) {
+		// check if all entries are there
+		for (int i = 1; i <= ENTRY_LIST_LENGTH; i++) {
 			String linkText = popupPage.getEntryTitle(i);
 			assertNotNull(popupPage.getEntryTitle(i));
 			popupPage.clickOnEntryLink(linkText);
@@ -151,7 +157,7 @@ public class FirespottingIT extends AbstractChromeExtensionTest {
 
 		popupPage.getRefreshLink().click();
 
-		WebDriverWait driverWait = new WebDriverWait(popupPage.getDriver(), 3L);
+		WebDriverWait driverWait = new WebDriverWait(popupPage.getDriver(), TIME_TO_WAIT_FOR_REFRESH);
 
 		driverWait.until(new Predicate<WebDriver>() {
 			@Override
