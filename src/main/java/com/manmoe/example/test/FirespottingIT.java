@@ -25,7 +25,7 @@ import static us.monoid.web.Resty.put;
  * @author Manuel Möhlmann <mail@manmoe.com>
  */
 public class FirespottingIT extends AbstractChromeExtensionTest {
-	private static final String EXTENSION_NAME_FROM_MANIFEST =  "Firespotting! Interesting Ideas, Every Day!";
+	private static final String EXTENSION_NAME_FROM_MANIFEST = "Firespotting! Interesting Ideas, Every Day!";
 
 	/**
 	 * This is our testmodel. So we don't get lost in details, how to get some elements.
