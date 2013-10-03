@@ -15,18 +15,26 @@ import static org.testng.Assert.assertEquals;
  * @author Manuel Möhlmann <mail@manmoe.com>
  */
 public class PopupPageTest {
-	// the object to test
+	/**
+	 * the object to test
+	 */
 	private PopupPage popupPage;
 
-	// the mock we want to inject into our testobject
+	/**
+	 * the mock we want to inject into our testobject
+	 */
 	private RemoteWebDriver webDriver;
 
 	private static final String EXTENSION_NAME = "test-extension";
 
-	// mock we want to use within the test
+	/**
+	 * mock we want to use within the test
+	 */
 	private WebElement webElement;
 
-	// set up our test evironment
+	/**
+	 * set up our test evironment
+	 */
 	@BeforeMethod
 	public void setUp() {
 		webDriver = mock(RemoteWebDriver.class);
