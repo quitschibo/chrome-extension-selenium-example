@@ -50,6 +50,7 @@ public class RemoteDriverConfig {
 		try {
 			return new RemoteWebDriver(new URL(remoteUrl), desiredCapabilities);
 		} catch (MalformedURLException e) {
+			// TODO: add properly system logging
 			System.out.println("Url for remote access is malformed. Please provide a valid URL.");
 		}
 		// should not happen.
