@@ -3,9 +3,12 @@ package com.manmoe.example.config;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.io.File;
+import java.net.MalformedURLException;
 
 import static org.mockito.Mockito.*;
 import static org.testng.Assert.assertEquals;
@@ -17,7 +20,15 @@ import static org.testng.Assert.assertEquals;
  */
 public class RemoteConfigTest {
 	// our object under test
-	private RemoteDriverConfig remoteDriverConfig = spy(new RemoteDriverConfig());
+	private RemoteDriverConfig remoteDriverConfig;
+
+	/**
+	 * Method for setting up the test enviroment.
+	 */
+	@BeforeMethod
+	public void setUp() {
+		remoteDriverConfig = spy(new RemoteDriverConfig());
+	}
 
 	/**
 	 * Test, if the ChromeOptions config is correct.
@@ -67,5 +78,23 @@ public class RemoteConfigTest {
 		DesiredCapabilities result = remoteDriverConfig.createDesiredCapabilitiesForChrome();
 
 		assertEquals(result.getBrowserName(), DesiredCapabilities.chrome().getBrowserName());
+	}
+
+	/**
+	 * Testing the instantiation of the remoteDriver Url for remote Selenium tests.
+	 */
+	@Test
+	public void testBuildRemoteDriver() throws MalformedURLException {
+		String remoteUrl = "http://example.com";
+		DesiredCapabilities desiredCapabilities = mock(DesiredCapabilities.class);
+		remoteDriverConfig.desiredCapabilities = desiredCapabilities;
+		doReturn(remoteUrl).when(remoteDriverConfig).getRemoteUrl();
+
+		RemoteWebDriver remoteWebDriverMock = mock(RemoteWebDriver.class);
+		doReturn(remoteWebDriverMock).when(remoteDriverConfig).createRemoteWebDriver(remoteUrl, desiredCapabilities);
+
+		RemoteWebDriver result = remoteDriverConfig.buildRemoteDriver();
+
+		assertEquals(result, remoteWebDriverMock);
 	}
 }
