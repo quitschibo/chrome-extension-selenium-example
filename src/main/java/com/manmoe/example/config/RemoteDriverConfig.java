@@ -22,8 +22,8 @@ public class RemoteDriverConfig {
 	private static final String REMOTE_URL = "";
 	private static final String EXTENSION_FOLDER = "src/main/resources/firespotting.crx";
 
-	private DesiredCapabilities desiredCapabilities;
-	private ChromeOptions chromeOptions;
+	protected DesiredCapabilities desiredCapabilities;
+	protected ChromeOptions chromeOptions;
 
 	/**
 	 * Here web build the properties we need. Attention: the order matters!
