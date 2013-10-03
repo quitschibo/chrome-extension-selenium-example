@@ -8,6 +8,7 @@ import org.testng.annotations.Test;
 import java.io.File;
 
 import static org.mockito.Mockito.*;
+import static org.testng.Assert.assertEquals;
 
 /**
  * Tests the RemoteConfig
@@ -46,5 +47,25 @@ public class RemoteConfigTest {
 
 		verify(desiredCapabilities, atLeastOnce()).setCapability(eq("platform"), any(Platform.class));
 		verify(desiredCapabilities, atLeastOnce()).setCapability(eq(ChromeOptions.CAPABILITY), any(ChromeOptions.class));
+	}
+
+	/**
+	 * Testing instantiating chrome options
+	 */
+	@Test
+	public void testCreateChromeOptions() {
+		ChromeOptions result = remoteDriverConfig.createCromeOptions();
+
+		assertEquals(result, new ChromeOptions());
+	}
+
+	/**
+	 * CHeck the instantiation of the correct browser capability.
+	 */
+	@Test
+	public void testCreateDesiredCapabilitiesForChrome() {
+		DesiredCapabilities result = remoteDriverConfig.createDesiredCapabilitiesForChrome();
+
+		assertEquals(result.getBrowserName(), DesiredCapabilities.chrome().getBrowserName());
 	}
 }
