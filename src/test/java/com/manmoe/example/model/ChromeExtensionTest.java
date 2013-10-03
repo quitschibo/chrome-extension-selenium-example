@@ -65,6 +65,9 @@ public class ChromeExtensionTest {
 		verify(webDriver, atLeastOnce()).quit();
 	}
 
+	/**
+	 * Tests the opening of the given page.
+	 */
 	@Test
 	public void testNavigateTo() {
 		String testPage = "/index.html";
@@ -77,6 +80,9 @@ public class ChromeExtensionTest {
 		verify(webDriver, atLeastOnce()).get(ChromeExtension.EXTENSION_URL_PROTOCOL + testId + "/" + testPage);
 	}
 
+	/**
+	 * Tests the switching to the last opened tab.
+	 */
 	@Test
 	public void testSwitchToNewTab() {
 		// creating some window handles for the test
