@@ -2,10 +2,14 @@ package com.manmoe.example.model;
 
 import com.google.common.collect.ImmutableList;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+
+import java.util.HashSet;
+import java.util.Set;
 
 import static org.mockito.Mockito.*;
 import static org.testng.Assert.assertEquals;
@@ -32,7 +36,7 @@ public class ChromeExtensionTest {
 	@BeforeMethod
 	public void setUp() {
 		webDriver = mock(RemoteWebDriver.class);
-		chromeExtension = new ChromeExtension(webDriver, "name");
+		chromeExtension = spy(new ChromeExtension(webDriver, "name"));
 	}
 
 	/**
@@ -59,5 +63,37 @@ public class ChromeExtensionTest {
 
 		verify(webDriver, atLeastOnce()).close();
 		verify(webDriver, atLeastOnce()).quit();
+	}
+
+	@Test
+	public void testNavigateTo() {
+		String testPage = "/index.html";
+		String testId = "abcdef";
+
+		doReturn(testId).when(chromeExtension).getId();
+
+		chromeExtension.navigateTo(testPage);
+
+		verify(webDriver, atLeastOnce()).get(ChromeExtension.EXTENSION_URL_PROTOCOL + testId + "/" + testPage);
+	}
+
+	@Test
+	public void testSwitchToNewTab() {
+		// creating some window handles for the test
+		Set<String> testTabs = new HashSet<String>();
+		testTabs.add("test1");
+		testTabs.add("test2");
+		testTabs.add("test3");
+
+		doReturn(testTabs).when(webDriver).getWindowHandles();
+
+		WebDriver.TargetLocator targetLocatorMock = mock(WebDriver.TargetLocator.class);
+		doReturn(targetLocatorMock).when(webDriver).switchTo();
+
+		// run test method
+		chromeExtension.switchToNewTab();
+
+		// check, if the method always switches to the last tab
+		verify(targetLocatorMock, atLeastOnce()).window("test3");
 	}
 }
