@@ -58,33 +58,6 @@ public class RemoteDriverConfig {
 	}
 
 	/**
-	 * Method for getting the remoteUrl from environment variable, if set.
-	 *
-	 * @return the RemoteDriver url for starting the RemoteSeleniumDriver with.
-	 */
-	protected String getRemoteUrl() {
-		return System.getenv("REMOTE_DRIVER_URL");
-	}
-
-	/**
-	 * Creating the RemoteWebDriver.
-	 */
-	protected RemoteWebDriver createRemoteWebDriver(String remoteUrl, DesiredCapabilities desiredCapabilities) throws MalformedURLException {
-		return new RemoteWebDriver(new URL(remoteUrl), desiredCapabilities);
-	}
-
-	/**
-	 * Builds a local driver for debugging issues.
-	 *
-	 * @return local driver with same configuration as remote driver
-	 */
-	public ChromeDriver buildLocalDriver() {
-		// it may be, that you must provide the path to the local driver here.
-		//System.setProperty("webdriver.chrome.driver", "");
-		return new ChromeDriver(desiredCapabilities);
-	}
-
-	/**
 	 * Here you can change the chrome options.
 	 *
 	 * @see https://code.google.com/p/chromedriver/wiki/CapabilitiesAndSwitches#Using_the_class
@@ -135,5 +108,32 @@ public class RemoteDriverConfig {
 	 */
 	protected DesiredCapabilities createDesiredCapabilitiesForChrome() {
 		return DesiredCapabilities.chrome();
+	}
+
+	/**
+	 * Method for getting the remoteUrl from environment variable, if set.
+	 *
+	 * @return the RemoteDriver url for starting the RemoteSeleniumDriver with.
+	 */
+	protected String getRemoteUrl() {
+		return System.getenv("REMOTE_DRIVER_URL");
+	}
+
+	/**
+	 * Creating the RemoteWebDriver.
+	 */
+	protected RemoteWebDriver createRemoteWebDriver(String remoteUrl, DesiredCapabilities desiredCapabilities) throws MalformedURLException {
+		return new RemoteWebDriver(new URL(remoteUrl), desiredCapabilities);
+	}
+
+	/**
+	 * Builds a local driver for debugging issues.
+	 *
+	 * @return local driver with same configuration as remote driver
+	 */
+	public ChromeDriver buildLocalDriver() {
+		// it may be, that you must provide the path to the local driver here.
+		//System.setProperty("webdriver.chrome.driver", "");
+		return new ChromeDriver(desiredCapabilities);
 	}
 }
