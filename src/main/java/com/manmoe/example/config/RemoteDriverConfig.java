@@ -41,20 +41,36 @@ public class RemoteDriverConfig {
 	 * @throws MalformedURLException If the remote URL is not appropriate
 	 */
 	public RemoteWebDriver buildRemoteDriver() {
-		String remoteUrl = System.getenv("REMOTE_DRIVER_URL");
+		String remoteUrl = getRemoteUrl();
 
 		if (remoteUrl == null) {
 			remoteUrl = REMOTE_URL;
 		}
 
 		try {
-			return new RemoteWebDriver(new URL(remoteUrl), desiredCapabilities);
+			return createRemoteWebDriver(remoteUrl, desiredCapabilities);
 		} catch (MalformedURLException e) {
 			// TODO: add properly system logging
 			System.out.println("Url for remote access is malformed. Please provide a valid URL.");
 		}
 		// should not happen.
 		throw new RuntimeException("Remote Driver could not been build properly, because of an malformed remote url");
+	}
+
+	/**
+	 * Method for getting the remoteUrl from environment variable, if set.
+	 *
+	 * @return the RemoteDriver url for starting the RemoteSeleniumDriver with.
+	 */
+	protected String getRemoteUrl() {
+		return System.getenv("REMOTE_DRIVER_URL");
+	}
+
+	/**
+	 * Creating the RemoteWebDriver.
+	 */
+	protected RemoteWebDriver createRemoteWebDriver(String remoteUrl, DesiredCapabilities desiredCapabilities) throws MalformedURLException {
+		return new RemoteWebDriver(new URL(remoteUrl), desiredCapabilities);
 	}
 
 	/**
