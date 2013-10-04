@@ -34,6 +34,7 @@ public class FirespottingITTest {
 	@BeforeMethod
 	public void setUp() {
 		this.firespottingIT = spy(new FirespottingIT());
+		this.firespottingIT.popupPage = this.popupPage;
 	}
 
 	/**
@@ -116,5 +117,15 @@ public class FirespottingITTest {
 		when(popupPage.getId()).thenReturn("testId");
 
 		firespottingIT.isInstalled();
+	}
+
+	@Test
+	public void testPopupTest() {
+		when(popupPage.getTitle()).thenReturn("Firespotting!");
+
+		firespottingIT.testPopup();
+
+		verify(popupPage, atLeastOnce()).open();
+		verify(popupPage, atLeastOnce()).getTitle();
 	}
 }
