@@ -3,7 +3,9 @@ package com.manmoe.example.test;
 import com.manmoe.example.model.PopupPage;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.remote.SessionId;
+import org.testng.ITestResult;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import us.monoid.web.AbstractContent;
 import us.monoid.web.Resty;
@@ -81,6 +83,27 @@ public class FirespottingITTest {
 			verify(firespottingIT.restClient, atLeastOnce()).withHeader("Content-Type", "application/json");
 			verify(firespottingIT.restClient, atLeastOnce()).json(anyString(), any(AbstractContent.class));
 		}
+	}
+
+	@Test(dataProvider = "reportDataProvider")
+	public void testReport(boolean testSuccess) {
+		ITestResult itResultMock = mock(ITestResult.class);
+		when(itResultMock.isSuccess()).thenReturn(testSuccess);
+		// set initial value of test result
+		firespottingIT.testResult = true;
+
+		// run test method
+		firespottingIT.report(itResultMock);
+
+		assertEquals(firespottingIT.testResult, testSuccess);
+	}
+
+	@DataProvider
+	public Object[][] reportDataProvider() {
+		return new Object[][] {
+			{true},
+			{false}
+		};
 	}
 
 	/**
