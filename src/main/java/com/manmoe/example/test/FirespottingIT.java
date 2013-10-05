@@ -125,7 +125,7 @@ public class FirespottingIT extends AbstractChromeExtensionTest {
 		// check if all entries are there
 		for (int i = 1; i <= ENTRY_LIST_LENGTH; i++) {
 			String linkText = popupPage.getEntryTitle(i);
-			assertNotNull(popupPage.getEntryTitle(i));
+			assertNotNull(linkText);
 			popupPage.clickOnEntryLink(linkText);
 			popupPage.getBack();
 		}
