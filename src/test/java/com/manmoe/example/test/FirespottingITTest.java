@@ -128,4 +128,23 @@ public class FirespottingITTest {
 		verify(popupPage, atLeastOnce()).open();
 		verify(popupPage, atLeastOnce()).getTitle();
 	}
+
+	@Test
+	public void testEntryTest() {
+		String linkText = "linkText";
+
+		// mocking for every entry
+		for (int i = 1; i <= FirespottingIT.ENTRY_LIST_LENGTH; i++) {
+			when(popupPage.getEntryTitle(i)).thenReturn(linkText + i);
+		}
+
+		// call test method
+		firespottingIT.testEntry();
+
+		// verifying for every entry
+		for (int i = 1; i <= FirespottingIT.ENTRY_LIST_LENGTH; i++) {
+			verify(popupPage, atLeastOnce()).clickOnEntryLink(linkText + i);
+			verify(popupPage, atLeastOnce()).getBack();
+		}
+	}
 }
