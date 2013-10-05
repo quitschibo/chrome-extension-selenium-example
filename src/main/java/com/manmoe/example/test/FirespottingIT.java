@@ -32,6 +32,7 @@ public class FirespottingIT extends AbstractChromeExtensionTest {
 	 * sum of entries to be shown on popup page
 	 */
 	public static final int ENTRY_LIST_LENGTH = 15;
+	public static final String ISSUES_PAGE_TITLE = "Issues · quitschibo/firespotting-chrome-extension";
 
 	/**
 	 * This is our testmodel. So we don't get lost in details, how to get some elements.
@@ -143,7 +144,7 @@ public class FirespottingIT extends AbstractChromeExtensionTest {
 
 		popupPage.getIssues().click();
 
-		assertTrue(popupPage.getDriver().getTitle().startsWith("Issues · quitschibo/firespotting-chrome-extension"));
+		assertTrue(popupPage.getDriver().getTitle().startsWith(ISSUES_PAGE_TITLE));
 	}
 
 	/**

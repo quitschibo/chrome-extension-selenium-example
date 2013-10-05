@@ -1,6 +1,8 @@
 package com.manmoe.example.test;
 
 import com.manmoe.example.model.PopupPage;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.remote.SessionId;
 import org.testng.ITestResult;
@@ -146,5 +148,27 @@ public class FirespottingITTest {
 			verify(popupPage, atLeastOnce()).clickOnEntryLink(linkText + i);
 			verify(popupPage, atLeastOnce()).getBack();
 		}
+	}
+
+	@Test
+	public void testIssuesTest() {
+		RemoteWebDriver driver = mock(RemoteWebDriver.class);
+		WebDriver.Navigation navigation = mock(WebDriver.Navigation.class);
+		WebElement issuesElement = mock(WebElement.class);
+
+		// popupPage.getDriver().navigate()--> .refresh(); follows in verifying section
+		when(popupPage.getDriver()).thenReturn(driver);
+		when(driver.navigate()).thenReturn(navigation);
+
+		// popupPage.getIssues()-->.click(); follows in verifying section
+		when(popupPage.getIssues()).thenReturn(issuesElement);
+
+		when(driver.getTitle()).thenReturn(FirespottingIT.ISSUES_PAGE_TITLE);
+
+		firespottingIT.testIssues();
+
+		verify(popupPage, atLeastOnce()).open();
+		verify(navigation, atLeastOnce()).refresh();
+		verify(issuesElement, atLeastOnce()).click();
 	}
 }
