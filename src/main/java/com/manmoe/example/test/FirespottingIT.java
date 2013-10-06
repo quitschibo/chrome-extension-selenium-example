@@ -158,7 +158,7 @@ public class FirespottingIT extends AbstractChromeExtensionTest {
 
 		popupPage.getRefreshLink().click();
 
-		WebDriverWait driverWait = new WebDriverWait(popupPage.getDriver(), TIME_TO_WAIT_FOR_REFRESH);
+		WebDriverWait driverWait = createWebDriverWait(popupPage.getDriver(), TIME_TO_WAIT_FOR_REFRESH);
 
 		driverWait.until(new Predicate<WebDriver>() {
 			@Override
@@ -167,6 +167,18 @@ public class FirespottingIT extends AbstractChromeExtensionTest {
 			};
 		});
 		assertEquals(popupPage.getTitle(), "Firespotting!");
+	}
+
+	/**
+	 * Just a helper method to create a WebDriverWait
+	 *
+	 * @param driver The driver we want to configure
+	 * @param timeToWaitForRefresh The time the driver should wait for a refresh
+	 *
+	 * @return a newly created WebDriverWait
+	 */
+	protected WebDriverWait createWebDriverWait(WebDriver driver, long timeToWaitForRefresh) {
+		return new WebDriverWait(driver, timeToWaitForRefresh);
 	}
 
 	/**
