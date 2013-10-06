@@ -190,4 +190,29 @@ public class FirespottingITTest {
 		verify(refreshLink, atLeastOnce()).click();
 		verify(driverWait, atLeastOnce()).until(any(Predicate.class));
 	}
+
+	@Test
+	public void testOpenOptionsTest() {
+		RemoteWebDriver webDriverMock = mock(RemoteWebDriver.class);
+		WebDriver.Navigation navigateMock = mock(WebDriver.Navigation.class);
+		WebElement optionsLinkMock = mock(WebElement.class);
+
+		// popupPage.getDriver().navigate().refresh();
+		when(popupPage.getDriver()).thenReturn(webDriverMock);
+		when(webDriverMock.navigate()).thenReturn(navigateMock);
+
+		// popupPage.getOptionsLink().click();
+		when(popupPage.getOptionsLink()).thenReturn(optionsLinkMock);
+
+		// popupPage.getTitle()
+		when(popupPage.getTitle()).thenReturn("Options");
+
+		// run test method
+		firespottingIT.testOpenOptions();
+
+		verify(popupPage, atLeastOnce()).open();
+		verify(navigateMock, atLeastOnce()).refresh();
+		verify(optionsLinkMock, atLeastOnce()).click();
+		verify(popupPage, atLeastOnce()).switchToNewTab();
+	}
 }
