@@ -1,10 +1,12 @@
 package com.manmoe.example.test;
 
+import com.google.common.base.Predicate;
 import com.manmoe.example.model.PopupPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.remote.SessionId;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.ITestResult;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
@@ -170,5 +172,22 @@ public class FirespottingITTest {
 		verify(popupPage, atLeastOnce()).open();
 		verify(navigation, atLeastOnce()).refresh();
 		verify(issuesElement, atLeastOnce()).click();
+	}
+
+	@Test
+	public void testRefreshTest() throws InterruptedException {
+		WebElement refreshLink = mock(WebElement.class);
+		WebDriverWait driverWait = mock(WebDriverWait.class);
+
+		when(popupPage.getRefreshLink()).thenReturn(refreshLink);
+		when(popupPage.getTitle()).thenReturn("Firespotting!");
+		doReturn(driverWait).when(firespottingIT).createWebDriverWait(any(WebDriver.class), eq(FirespottingIT.TIME_TO_WAIT_FOR_REFRESH));
+
+		// run test method
+		firespottingIT.testRefresh();
+
+		verify(popupPage, atLeastOnce()).open();
+		verify(refreshLink, atLeastOnce()).click();
+		verify(driverWait, atLeastOnce()).until(any(Predicate.class));
 	}
 }
