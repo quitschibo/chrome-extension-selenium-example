@@ -49,10 +49,13 @@ public class RemoteConfigTest {
 	 * Check, if at least the chrome options are added.
 	 */
 	@Test
-	public void testDesiredCapabilities() {
+	public void testBuildDesiredCapabilities() {
+		// DesiredCapabilities capabilities = createDesiredCapabilitiesForChrome();
 		DesiredCapabilities desiredCapabilities = mock(DesiredCapabilities.class);
-
 		when(remoteDriverConfig.createDesiredCapabilitiesForChrome()).thenReturn(desiredCapabilities);
+
+		// we want to test it without chromeOptions set
+		remoteDriverConfig.chromeOptions = null;
 
 		remoteDriverConfig.buildDesiredCapabilities();
 
@@ -85,16 +88,37 @@ public class RemoteConfigTest {
 	 */
 	@Test
 	public void testBuildRemoteDriver() throws MalformedURLException {
+		// String remoteUrl = getRemoteUrl();
 		String remoteUrl = "http://example.com";
-		DesiredCapabilities desiredCapabilities = mock(DesiredCapabilities.class);
-		remoteDriverConfig.desiredCapabilities = desiredCapabilities;
 		doReturn(remoteUrl).when(remoteDriverConfig).getRemoteUrl();
 
+		// mocking remoteDriverConfig.desiredCapabilities
+		DesiredCapabilities desiredCapabilities = mock(DesiredCapabilities.class);
+		remoteDriverConfig.desiredCapabilities = desiredCapabilities;
+
+		// return createRemoteWebDriver(remoteUrl, desiredCapabilities);
 		RemoteWebDriver remoteWebDriverMock = mock(RemoteWebDriver.class);
 		doReturn(remoteWebDriverMock).when(remoteDriverConfig).createRemoteWebDriver(remoteUrl, desiredCapabilities);
 
+		// run test method
 		RemoteWebDriver result = remoteDriverConfig.buildRemoteDriver();
 
 		assertEquals(result, remoteWebDriverMock);
+	}
+
+	/**
+	 * Testing building of remoteDriver, but with throwing an MalformedURLException when trying to create the driver.
+	 * Also, we test the method with remoteUrl == null.
+	 */
+	@Test(expectedExceptions = RuntimeException.class)
+	public void testBuildRemoteDriverWithMalformedURLException() throws MalformedURLException {
+		// mocking remoteDriverConfig.desiredCapabilities
+		DesiredCapabilities desiredCapabilities = mock(DesiredCapabilities.class);
+		remoteDriverConfig.desiredCapabilities = desiredCapabilities;
+
+		doThrow(MalformedURLException.class).when(remoteDriverConfig.createRemoteWebDriver("", desiredCapabilities));
+
+		// run test method
+		remoteDriverConfig.buildRemoteDriver();
 	}
 }
