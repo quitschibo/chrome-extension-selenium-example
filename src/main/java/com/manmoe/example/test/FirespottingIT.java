@@ -65,10 +65,10 @@ public class FirespottingIT extends AbstractChromeExtensionTest {
 	public void tearDown() throws IOException {
 		// send saucelabs the result of the tests
 		// @TODO should be use @AfterSuite in future
-		String sauceUsername = System.getenv("SAUCE_USERNAME");
-		String sauceAccessKey = System.getenv("SAUCE_ACCESS_KEY");
-		String platformString = System.getenv("PLATFORM");
-		String buildNr = System.getenv("TRAVIS_BUILD_NUMBER");
+		String sauceUsername = getSystemVariable("SAUCE_USERNAME");
+		String sauceAccessKey = getSystemVariable("SAUCE_ACCESS_KEY");
+		String platformString = getSystemVariable("PLATFORM");
+		String buildNr = getSystemVariable("TRAVIS_BUILD_NUMBER");
 
 		// if sauceLabs is used, the results should be transmitted
 		if (sauceUsername != null && sauceAccessKey != null && platformString != null) {
@@ -82,6 +82,15 @@ public class FirespottingIT extends AbstractChromeExtensionTest {
 		}
 
 		this.popupPage.tearDown();
+	}
+
+	/**
+	 * This method isolates the getting of the env variable for better testability.
+	 *
+	 * @param envVariableName the name of the env variable we want to get
+	 */
+	protected String getSystemVariable(String envVariableName) {
+		return System.getenv(envVariableName);
 	}
 
 	/**

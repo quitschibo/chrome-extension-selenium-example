@@ -75,19 +75,21 @@ public class FirespottingITTest {
 		when(remoteWebDriver.getSessionId()).thenReturn(sessionId);
 		when(sessionId.toString()).thenReturn("72345863");
 
+		doReturn("sauceUsername").when(firespottingIT).getSystemVariable("SAUCE_USERNAME");
+		doReturn("sauceKey").when(firespottingIT).getSystemVariable("SAUCE_ACCESS_KEY");
+		doReturn("platform").when(firespottingIT).getSystemVariable("PLATFORM");
+		doReturn("travisBuildNr").when(firespottingIT).getSystemVariable("TRAVIS_BUILD_NUMBER");
+
 		// run test method
 		firespottingIT.tearDown();
 
 		// is the method called to tear down correctly?
 		verify(popupPage, atLeastOnce()).tearDown();
 
-		if (System.getenv("SAUCE_USERNAME") != null && System.getenv("SAUCE_ACCESS_KEY") != null && System.getenv("PLATFORM") != null) {
-			// verify rest client actions if environment variables are set
-			// @TODO: add better verification! (no more anyStrings; check the values!)
-			verify(firespottingIT.restClient, atLeastOnce()).authenticate(anyString(), anyString(), anyString().toCharArray());
-			verify(firespottingIT.restClient, atLeastOnce()).withHeader("Content-Type", "application/json");
-			verify(firespottingIT.restClient, atLeastOnce()).json(anyString(), any(AbstractContent.class));
-		}
+		// verify rest client actions if environment variables are set
+		// @TODO: add better verification! (no more anyStrings; check the values!)
+		verify(firespottingIT.restClient, atLeastOnce()).authenticate(anyString(), anyString(), anyString().toCharArray());
+		verify(firespottingIT.restClient, atLeastOnce()).withHeader("Content-Type", "application/json");
 	}
 
 	@Test(dataProvider = "reportDataProvider")
