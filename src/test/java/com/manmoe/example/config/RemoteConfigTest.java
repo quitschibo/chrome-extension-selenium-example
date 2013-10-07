@@ -12,6 +12,7 @@ import java.net.MalformedURLException;
 
 import static org.mockito.Mockito.*;
 import static org.testng.Assert.assertEquals;
+import static org.testng.AssertJUnit.fail;
 
 /**
  * Tests the RemoteConfig
@@ -112,13 +113,17 @@ public class RemoteConfigTest {
 	 */
 	@Test(expectedExceptions = RuntimeException.class)
 	public void testBuildRemoteDriverWithMalformedURLException() throws MalformedURLException {
+		when(remoteDriverConfig.getRemoteUrl()).thenReturn(null);
+
 		// mocking remoteDriverConfig.desiredCapabilities
 		DesiredCapabilities desiredCapabilities = mock(DesiredCapabilities.class);
 		remoteDriverConfig.desiredCapabilities = desiredCapabilities;
 
-		doThrow(MalformedURLException.class).when(remoteDriverConfig.createRemoteWebDriver("", desiredCapabilities));
+		doThrow(MalformedURLException.class).when(remoteDriverConfig).createRemoteWebDriver(eq(""), any(DesiredCapabilities.class));
 
 		// run test method
 		remoteDriverConfig.buildRemoteDriver();
+
+		fail("Expected Exception not thrown!");
 	}
 }
