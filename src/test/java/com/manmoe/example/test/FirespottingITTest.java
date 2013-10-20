@@ -11,7 +11,6 @@ import org.testng.ITestResult;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import us.monoid.web.AbstractContent;
 import us.monoid.web.Resty;
 
 import java.io.IOException;
