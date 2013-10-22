@@ -1,5 +1,6 @@
 package com.manmoe.example.model;
 
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.Select;
 
@@ -42,7 +43,7 @@ public class OptionsPage extends ChromeExtension {
 	 * @return The value of the selected RequestInteral e.g. "300000" and NOT "5 minutes"
 	 */
 	public String getRequestInterval() {
-		return new Select(getDriver().findElementById("RequestInterval")).getFirstSelectedOption().getAttribute("value");
+		return createSelectByWebElement(getDriver().findElementById("RequestInterval")).getFirstSelectedOption().getAttribute("value");
 	}
 
 	/**
@@ -50,6 +51,17 @@ public class OptionsPage extends ChromeExtension {
 	 * @return
 	 */
 	public String getNotificationTimeout() {
-		return new Select(getDriver().findElementById("NotificationTimeout")).getFirstSelectedOption().getAttribute("value");
+		return createSelectByWebElement(getDriver().findElementById("NotificationTimeout")).getFirstSelectedOption().getAttribute("value");
+	}
+
+	/**
+	 * Just for creating a new Select element by the given web element. It is isolated for test purposes.
+	 *
+	 * @param element the element we want to create the select from
+	 *
+	 * @return newly created select element
+	 */
+	protected Select createSelectByWebElement(WebElement element) {
+		return new Select(element);
 	}
 }
