@@ -86,6 +86,12 @@ public class RemoteDriverConfig {
 		Platform platform = Platform.valueOf(platformString);
 		capabilities.setCapability("platform", platform);
 
+		// set browser version
+		String versionString = System.getenv("VERSION");
+		if (versionString != null) {
+			capabilities.setVersion("31");
+		}
+
 		// if chrome options are not build yet, we have to handle it
 		if (chromeOptions == null) {
 			buildChromeOptions();
