@@ -183,3 +183,6 @@ coverage
 
 # Mac crap
 .DS_Store
+
+# Java
+target
