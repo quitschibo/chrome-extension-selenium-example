@@ -25,3 +25,6 @@ matrix:
       script: mvn verify
       env:
         - PLATFORM=VISTA
+
+notifications:
+  slack: manmoe:P1jnCg1yRXtcJN0iLRN9tHWF
