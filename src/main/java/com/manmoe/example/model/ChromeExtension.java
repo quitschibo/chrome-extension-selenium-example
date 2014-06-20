@@ -60,22 +60,33 @@ public class ChromeExtension {
 		// on this site every extension will be shown
 		driver.get(EXTENSION_INSPECT_PAGE);
 
-		// get the extensions list
-		List<WebElement> span = driver.findElements(By.id("extensions"));
+		// This element we want to find:
+		/*
+		<div class="subrow">
+			<div class="name">Firespotting! Interesting Ideas, Every Day!</div>
+			<div class="url">chrome-extension://abcdefghijklm/background.html</div>
+		</div>
+		 */
 
-		for (WebElement elem : span) {
-			String text = elem.getText();
-			// the test element is much too large. We will split it, to receive the background.html url link
-			String[] splits = text.split(" ");
-			for (String part : splits) {
-				// we check, if we got the background.html link
-				if (part.startsWith(EXTENSION_URL_PROTOCOL) && part.endsWith(EXTENSION_SITE_BACKGROUND_URL)) {
-					// removing all "overhead"
-					part = part.replace(EXTENSION_URL_PROTOCOL, "");
-					part = part.replace(EXTENSION_SITE_BACKGROUND_URL, "");
-					extensionId = part;
-					return part;
-				}
+		// get the extensions list
+		List<WebElement> divList = driver.findElements(By.className("subrow-box"));
+
+		for (WebElement elem : divList) {
+			// get name element and check, if this is the extension
+			WebElement nameElement = elem.findElement(By.className("name"));
+			if (!nameElement.getText().equals(this.name)) {
+				continue;
+			}
+			// it is the extension, so we have to find the id
+			WebElement linkElement = elem.findElement(By.className("url"));
+			String part = linkElement.getText();
+			// we check, if we got the background.html link
+			if (part.startsWith(EXTENSION_URL_PROTOCOL) && part.endsWith(EXTENSION_SITE_BACKGROUND_URL)) {
+				// removing all "overhead"
+				part = part.replace(EXTENSION_URL_PROTOCOL, "");
+				part = part.replace(EXTENSION_SITE_BACKGROUND_URL, "");
+				extensionId = part;
+				return part;
 			}
 		}
 
