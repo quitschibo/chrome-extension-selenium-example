@@ -15,7 +15,7 @@ import java.util.List;
 public class ChromeExtension {
 	public static final String EXTENSION_URL_PROTOCOL = "chrome-extension://";
 	public static final String EXTENSION_SITE_BACKGROUND_URL = "/background.html";
-	public static final String EXTENSION_INSPECT_PAGE = "chrome://inspect";
+	public static final String EXTENSION_INSPECT_PAGE = "chrome://inspect/#extensions";
 
 	/**
 	 * The name of the extension. Have a look in your extension manifest.json, if you are not sure.
