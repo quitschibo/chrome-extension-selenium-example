@@ -69,7 +69,7 @@ public class ChromeExtension {
 		 */
 
 		// get the extensions list
-		List<WebElement> divList = driver.findElements(By.className("subrow-box"));
+		List<WebElement> divList = driver.findElements(By.id("extensions-list"));
 
 		for (WebElement elem : divList) {
 			// get name element and check, if this is the extension
