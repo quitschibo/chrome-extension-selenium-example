@@ -145,7 +145,7 @@ public class FirespottingIT extends AbstractChromeExtensionTest {
 	/**
 	 * Clicks on the issues link and checks, if it loads.
 	 */
-	@Test
+	//@Test
 	public void testIssues() {
 		popupPage.open();
 
