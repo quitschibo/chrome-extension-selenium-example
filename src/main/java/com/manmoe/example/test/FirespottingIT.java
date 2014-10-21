@@ -61,7 +61,7 @@ public class FirespottingIT extends AbstractChromeExtensionTest {
 	 */
 	@BeforeClass
 	public void setUp() {
-		RemoteWebDriver testDriver = getLocalDriver();
+		RemoteWebDriver testDriver = getWebDriver();
 
 		this.popupPage = new PopupPage(testDriver, EXTENSION_NAME_FROM_MANIFEST);
 		this.issuesPage = new IssuesPage(testDriver, EXTENSION_NAME_FROM_MANIFEST);
