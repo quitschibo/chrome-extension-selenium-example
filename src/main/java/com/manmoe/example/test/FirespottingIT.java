@@ -206,8 +206,6 @@ public class FirespottingIT extends AbstractChromeExtensionTest {
 	public void testOpenOptions() {
 		popupPage.open();
 
-		popupPage.getDriver().navigate().refresh();
-
 		popupPage.getOptionsLink().click();
 
 		popupPage.switchToNewTab();
