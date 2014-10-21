@@ -17,17 +17,17 @@ matrix:
       script: mvn verify
       env:
         - PLATFORM=WIN8
-        - VERSION=35
+        - VERSION=38
     - jdk: oraclejdk7
       script: mvn verify
       env:
         - PLATFORM=XP
-        - VERSION=35
+        - VERSION=38
     - jdk: oraclejdk7
       script: mvn verify
       env:
         - PLATFORM=VISTA
-        - VERSION=35
+        - VERSION=38
 
 notifications:
   slack: manmoe:P1jnCg1yRXtcJN0iLRN9tHWF
