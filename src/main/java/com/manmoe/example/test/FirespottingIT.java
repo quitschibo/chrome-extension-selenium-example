@@ -14,7 +14,6 @@ import org.testng.annotations.Test;
 import us.monoid.web.Resty;
 
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
