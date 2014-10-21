@@ -1,8 +1,10 @@
 package com.manmoe.example.test;
 
 import com.google.common.base.Predicate;
+import com.manmoe.example.model.IssuesPage;
 import com.manmoe.example.model.PopupPage;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
@@ -12,6 +14,7 @@ import org.testng.annotations.Test;
 import us.monoid.web.Resty;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
@@ -32,12 +35,16 @@ public class FirespottingIT extends AbstractChromeExtensionTest {
 	 * sum of entries to be shown on popup page
 	 */
 	public static final int ENTRY_LIST_LENGTH = 15;
-	public static final String ISSUES_PAGE_TITLE = "Issues · quitschibo/firespotting-chrome-extension";
 
 	/**
 	 * This is our testmodel. So we don't get lost in details, how to get some elements.
 	 */
 	protected PopupPage popupPage;
+
+	/**
+	 * Issues page testmodel
+	 */
+	protected IssuesPage issuesPage;
 
 	/**
 	 * We set it initially == true, so we can &= each test method result.
@@ -55,7 +62,10 @@ public class FirespottingIT extends AbstractChromeExtensionTest {
 	 */
 	@BeforeClass
 	public void setUp() {
-		this.popupPage = new PopupPage(getWebDriver(), EXTENSION_NAME_FROM_MANIFEST);
+		RemoteWebDriver testDriver = getLocalDriver();
+
+		this.popupPage = new PopupPage(testDriver, EXTENSION_NAME_FROM_MANIFEST);
+		this.issuesPage = new IssuesPage(testDriver, EXTENSION_NAME_FROM_MANIFEST);
 	}
 
 	/**
@@ -137,7 +147,7 @@ public class FirespottingIT extends AbstractChromeExtensionTest {
 			String linkText = popupPage.getEntryTitle(i);
 			assertNotNull(linkText);
 			popupPage.clickOnEntryLink(linkText);
-			popupPage.getBack();
+			popupPage.open();
 		}
 
 	}
@@ -153,7 +163,7 @@ public class FirespottingIT extends AbstractChromeExtensionTest {
 
 		popupPage.getIssues().click();
 
-		assertTrue(popupPage.getDriver().getTitle().startsWith(ISSUES_PAGE_TITLE));
+		issuesPage.waitUntilLoaded();
 	}
 
 	/**
@@ -162,7 +172,7 @@ public class FirespottingIT extends AbstractChromeExtensionTest {
 	 * @throws InterruptedException
 	 */
 	@Test
-	public void testRefresh() throws InterruptedException {
+	public void testRefresh() {
 		popupPage.open();
 
 		popupPage.getRefreshLink().click();
@@ -173,7 +183,7 @@ public class FirespottingIT extends AbstractChromeExtensionTest {
 			@Override
 			public boolean apply(org.openqa.selenium.WebDriver webDriver) {
 				return popupPage.getTitle().equals("Firespotting!");
-			};
+			}
 		});
 		assertEquals(popupPage.getTitle(), "Firespotting!");
 	}
@@ -182,7 +192,7 @@ public class FirespottingIT extends AbstractChromeExtensionTest {
 	 * Just a helper method to create a WebDriverWait
 	 *
 	 * @param driver The driver we want to configure
-	 * @param timeToWaitForRefresh The time the driver should wait for a refresh
+	 * @param timeToWaitForRefresh The time the driver should wait for a refresh in seconds
 	 *
 	 * @return a newly created WebDriverWait
 	 */
