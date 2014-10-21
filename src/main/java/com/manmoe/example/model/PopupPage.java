@@ -1,7 +1,10 @@
 package com.manmoe.example.model;
 
+import com.google.common.base.Predicate;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
  * This model is for testing the firespotting popup page.
@@ -27,6 +30,8 @@ public class PopupPage extends ChromeExtension {
 	 */
 	public void open() {
 		navigateTo(PAGE_NAME);
+
+		waitUntilLoaded();
 	}
 
 	/**
@@ -61,6 +66,8 @@ public class PopupPage extends ChromeExtension {
 	 */
 	public void getBack() {
 		getDriver().navigate().back();
+
+		waitUntilLoaded();
 	}
 
 	/**
@@ -82,5 +89,19 @@ public class PopupPage extends ChromeExtension {
 	 */
 	public WebElement getOptionsLink() {
 		return getDriver().findElementByXPath("//*[@id=\"options\"]");
+	}
+
+	/**
+	 * This method is for waiting until the site is loaded.
+	 */
+	public void waitUntilLoaded() {
+		WebDriverWait driverWait = new WebDriverWait(getDriver(), 3L);
+
+		driverWait.until(new Predicate<WebDriver>() {
+			@Override
+			public boolean apply(org.openqa.selenium.WebDriver webDriver) {
+				return getTitle().equals("Firespotting!");
+			};
+		});
 	}
 }
