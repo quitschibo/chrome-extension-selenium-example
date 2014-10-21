@@ -106,8 +106,16 @@ public class ChromeExtension {
 	/**
 	 * Method for switching to the first opened tab/window.
 	 */
-	public void switchToNewTab() {
+	public void switchToFirstTab() {
 		driver.switchTo().window((String) driver.getWindowHandles().toArray()[0]);
+	}
+
+	/**
+	 * Method for switching to the first opened tab/window.
+	 */
+	public void switchToNewTab() {
+		int numberOfWindowHandles = driver.getWindowHandles().size();
+		driver.switchTo().window((String) driver.getWindowHandles().toArray()[numberOfWindowHandles - 1]);
 	}
 
 	/**

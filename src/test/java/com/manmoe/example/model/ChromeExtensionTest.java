@@ -101,6 +101,6 @@ public class ChromeExtensionTest {
 		chromeExtension.switchToNewTab();
 
 		// check, if the method always switches to the last tab
-		verify(targetLocatorMock, atLeastOnce()).window("test1");
+		verify(targetLocatorMock, atLeastOnce()).window("test3");
 	}
 }
