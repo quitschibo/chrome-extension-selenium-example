@@ -1,6 +1,7 @@
 package com.manmoe.example.test;
 
 import com.google.common.base.Predicate;
+import com.manmoe.example.model.IssuesPage;
 import com.manmoe.example.model.PopupPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -31,6 +32,8 @@ public class FirespottingITTest {
 
 	private PopupPage popupPage = mock(PopupPage.class);
 
+	private IssuesPage issuesPage = mock(IssuesPage.class);
+
 	/**
 	 *  Method for setting up the test environment.
 	 */
@@ -38,6 +41,7 @@ public class FirespottingITTest {
 	public void setUp() {
 		this.firespottingIT = spy(new FirespottingIT());
 		this.firespottingIT.popupPage = this.popupPage;
+		this.firespottingIT.issuesPage = this.issuesPage;
 	}
 
 	/**
@@ -149,7 +153,7 @@ public class FirespottingITTest {
 		// verifying for every entry
 		for (int i = 1; i <= FirespottingIT.ENTRY_LIST_LENGTH; i++) {
 			verify(popupPage, atLeastOnce()).clickOnEntryLink(linkText + i);
-			verify(popupPage, atLeastOnce()).getBack();
+			verify(popupPage, atLeastOnce()).open();
 		}
 	}
 
@@ -166,7 +170,7 @@ public class FirespottingITTest {
 		// popupPage.getIssues()-->.click(); follows in verifying section
 		when(popupPage.getIssues()).thenReturn(issuesElement);
 
-		when(driver.getTitle()).thenReturn(FirespottingIT.ISSUES_PAGE_TITLE);
+		when(driver.getTitle()).thenReturn(IssuesPage.PAGE_TITLE);
 
 		firespottingIT.testIssues();
 

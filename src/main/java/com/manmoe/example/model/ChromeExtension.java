@@ -69,7 +69,7 @@ public class ChromeExtension {
 		 */
 
 		// get the extensions list
-		List<WebElement> divList = driver.findElements(By.id("extensions-list"));
+		List<WebElement> divList = driver.findElements(By.className("properties-box"));
 
 		for (WebElement elem : divList) {
 			// get name element and check, if this is the extension
@@ -104,11 +104,10 @@ public class ChromeExtension {
 	}
 
 	/**
-	 * Method for switching to the latest opened tab/window.
+	 * Method for switching to the first opened tab/window.
 	 */
 	public void switchToNewTab() {
-		int handleSize = driver.getWindowHandles().size();
-		driver.switchTo().window((String) driver.getWindowHandles().toArray()[handleSize - 1]);
+		driver.switchTo().window((String) driver.getWindowHandles().toArray()[0]);
 	}
 
 	/**

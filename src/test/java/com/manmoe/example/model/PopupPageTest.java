@@ -46,6 +46,7 @@ public class PopupPageTest {
 	@Test
 	public void testOpen() {
 		doNothing().when(popupPage).navigateTo(anyString());
+		doNothing().when(popupPage).waitUntilLoaded();
 
 		// run test method
 		popupPage.open();
@@ -100,6 +101,7 @@ public class PopupPageTest {
 
 		when(popupPage.getDriver()).thenReturn(webDriver);
 		when(webDriver.navigate()).thenReturn(navigation);
+		doNothing().when(popupPage).waitUntilLoaded();
 
 		popupPage.getBack();
 

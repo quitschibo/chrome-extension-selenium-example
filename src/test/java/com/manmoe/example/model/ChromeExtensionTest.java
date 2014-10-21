@@ -10,6 +10,7 @@ import org.testng.annotations.Test;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 import static org.mockito.Mockito.*;
 import static org.testng.Assert.assertEquals;
@@ -86,7 +87,7 @@ public class ChromeExtensionTest {
 	@Test
 	public void testSwitchToNewTab() {
 		// creating some window handles for the test
-		Set<String> testTabs = new HashSet<String>();
+		Set<String> testTabs = new TreeSet<String>();
 		testTabs.add("test1");
 		testTabs.add("test2");
 		testTabs.add("test3");
@@ -100,6 +101,6 @@ public class ChromeExtensionTest {
 		chromeExtension.switchToNewTab();
 
 		// check, if the method always switches to the last tab
-		verify(targetLocatorMock, atLeastOnce()).window("test3");
+		verify(targetLocatorMock, atLeastOnce()).window("test1");
 	}
 }
