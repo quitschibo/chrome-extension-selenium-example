@@ -117,8 +117,6 @@ public class ChromeExtension {
 	public void switchToNewTab() {
 		int numberOfWindowHandles = driver.getWindowHandles().size();
 		driver.switchTo().window((String) driver.getWindowHandles().toArray()[numberOfWindowHandles - 1]);
-		// wait for new tab to be loaded
-		getDriver().manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
 	}
 
 	/**
