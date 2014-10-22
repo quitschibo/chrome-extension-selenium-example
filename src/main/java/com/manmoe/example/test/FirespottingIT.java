@@ -146,6 +146,11 @@ public class FirespottingIT extends AbstractChromeExtensionTest {
 			String linkText = popupPage.getEntryTitle(i);
 			assertNotNull(linkText);
 			popupPage.clickOnEntryLink(linkText);
+
+			popupPage.switchToNewTab();
+			popupPage.getDriver().close();
+
+			popupPage.switchToFirstTab();
 			popupPage.open();
 		}
 
@@ -162,7 +167,11 @@ public class FirespottingIT extends AbstractChromeExtensionTest {
 
 		popupPage.switchToNewTab();
 
+
 		issuesPage.waitUntilLoaded();
+
+		popupPage.getDriver().close();
+		popupPage.switchToFirstTab();
 	}
 
 	/**
@@ -211,5 +220,8 @@ public class FirespottingIT extends AbstractChromeExtensionTest {
 		popupPage.switchToNewTab();
 
 		assertEquals(popupPage.getTitle(), "Options");
+
+		popupPage.getDriver().close();
+		popupPage.switchToFirstTab();
 	}
 }
