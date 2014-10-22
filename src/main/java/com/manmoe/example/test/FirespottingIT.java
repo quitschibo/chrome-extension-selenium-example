@@ -158,9 +158,9 @@ public class FirespottingIT extends AbstractChromeExtensionTest {
 	public void testIssues() {
 		popupPage.open();
 
-		popupPage.getDriver().navigate().refresh();
-
 		popupPage.getIssues().click();
+
+		popupPage.switchToNewTab();
 
 		issuesPage.waitUntilLoaded();
 	}
