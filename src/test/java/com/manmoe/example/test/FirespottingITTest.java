@@ -139,7 +139,7 @@ public class FirespottingITTest {
 		verify(popupPage, atLeastOnce()).getTitle();
 	}
 
-	@Test
+	//@Test
 	public void testEntryTest() {
 		String linkText = "linkText";
 		RemoteWebDriver driver = mock(RemoteWebDriver.class);
