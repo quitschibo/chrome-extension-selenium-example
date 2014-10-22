@@ -141,6 +141,9 @@ public class FirespottingITTest {
 	@Test
 	public void testEntryTest() {
 		String linkText = "linkText";
+		RemoteWebDriver driver = mock(RemoteWebDriver.class);
+
+		when(popupPage.getDriver()).thenReturn(driver);
 
 		// mocking for every entry
 		for (int i = 1; i <= FirespottingIT.ENTRY_LIST_LENGTH; i++) {
