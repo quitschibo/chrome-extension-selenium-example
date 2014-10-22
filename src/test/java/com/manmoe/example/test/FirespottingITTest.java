@@ -15,6 +15,7 @@ import org.testng.annotations.Test;
 import us.monoid.web.Resty;
 
 import java.io.IOException;
+import java.util.TreeSet;
 
 import static org.mockito.Mockito.*;
 import static org.testng.Assert.*;
@@ -144,6 +145,7 @@ public class FirespottingITTest {
 		RemoteWebDriver driver = mock(RemoteWebDriver.class);
 
 		when(popupPage.getDriver()).thenReturn(driver);
+		when(driver.getWindowHandles()).thenReturn(new TreeSet<String>());
 
 		// mocking for every entry
 		for (int i = 1; i <= FirespottingIT.ENTRY_LIST_LENGTH; i++) {

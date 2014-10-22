@@ -148,7 +148,10 @@ public class FirespottingIT extends AbstractChromeExtensionTest {
 			popupPage.clickOnEntryLink(linkText);
 
 			popupPage.switchToNewTab();
-			popupPage.getDriver().close();
+
+			if (popupPage.getDriver().getWindowHandles().size() > 1) {
+				popupPage.getDriver().close();
+			}
 
 			popupPage.switchToFirstTab();
 			popupPage.open();
