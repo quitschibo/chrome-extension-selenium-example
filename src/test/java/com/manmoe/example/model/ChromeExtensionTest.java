@@ -84,7 +84,7 @@ public class ChromeExtensionTest {
 	/**
 	 * Tests the switching to the last opened tab.
 	 */
-	@Test
+	//@Test
 	public void testSwitchToNewTab() {
 		// creating some window handles for the test
 		Set<String> testTabs = new TreeSet<String>();
