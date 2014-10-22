@@ -175,7 +175,6 @@ public class FirespottingITTest {
 		firespottingIT.testIssues();
 
 		verify(popupPage, atLeastOnce()).open();
-		verify(navigation, atLeastOnce()).refresh();
 		verify(issuesElement, atLeastOnce()).click();
 	}
 
