@@ -42,6 +42,15 @@ public class OptionsPage extends ChromeExtension {
 	}
 
 	/**
+	 * Method for accessing the title of the page.
+	 *
+	 * @return The title of the page.
+	 */
+	public String getTitle() {
+		return getDriver().findElementById("title").getText();
+	}
+
+	/**
 	 * Method for getting the value of the selected option.
 	 *
 	 * @return The value of the selected RequestInteral e.g. "300000" and NOT "5 minutes"
@@ -78,8 +87,8 @@ public class OptionsPage extends ChromeExtension {
 		driverWait.until(new Predicate<WebDriver>() {
 			@Override
 			public boolean apply(org.openqa.selenium.WebDriver webDriver) {
-				return getDriver().getTitle().startsWith(PAGE_TITLE);
-			};
+				return getTitle().startsWith(PAGE_TITLE);
+			}
 		});
 	}
 }
