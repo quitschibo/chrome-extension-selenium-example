@@ -32,7 +32,7 @@ public class IssuesPage extends ChromeExtension {
      * This method is for waiting until the site is loaded.
      */
     public void waitUntilLoaded() {
-        WebDriverWait driverWait = new WebDriverWait(getDriver(), 10L);
+        WebDriverWait driverWait = new WebDriverWait(getDriver(), 30L);
 
         driverWait.until(new Predicate<WebDriver>() {
             @Override

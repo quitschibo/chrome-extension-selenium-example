@@ -94,6 +94,6 @@ public class PopupPage extends ChromeExtension {
 	 * This method is for waiting until the site is loaded.
 	 */
 	public void waitUntilLoaded() {
-		getDriver().manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
+		getDriver().manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
 	}
 }
