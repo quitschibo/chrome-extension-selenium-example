@@ -135,31 +135,6 @@ public class FirespottingIT extends AbstractChromeExtensionTest {
 	}
 
 	/**
-	 * Clicks on every item and checks, if it loads.
-	 */
-	//@Test
-	public void testEntry() {
-		popupPage.open();
-
-		// check if all entries are there
-		for (int i = 1; i <= ENTRY_LIST_LENGTH; i++) {
-			String linkText = popupPage.getEntryTitle(i);
-			assertNotNull(linkText);
-			popupPage.clickOnEntryLink(linkText);
-
-			popupPage.switchToNewTab();
-
-			if (popupPage.getDriver().getWindowHandles().size() > 1) {
-				popupPage.getDriver().close();
-			}
-
-			popupPage.switchToFirstTab();
-			popupPage.open();
-		}
-
-	}
-
-	/**
 	 * Clicks on the issues link and checks, if it loads.
 	 */
 	@Test
