@@ -168,6 +168,7 @@ public class FirespottingIT extends AbstractChromeExtensionTest {
 
 		popupPage.getIssues().click();
 
+		popupPage.switchToNewTab();
 
 		issuesPage.waitUntilLoaded();
 	}
