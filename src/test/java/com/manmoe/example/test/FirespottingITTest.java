@@ -17,6 +17,7 @@ import us.monoid.web.Resty;
 
 import java.io.IOException;
 import java.util.TreeSet;
+import java.util.concurrent.TimeUnit;
 
 import static org.mockito.Mockito.*;
 import static org.testng.Assert.*;
@@ -55,6 +56,11 @@ public class FirespottingITTest {
 	@Test
 	public void testSetUp() {
 		RemoteWebDriver remoteWebDriver = mock(RemoteWebDriver.class);
+		WebDriver.Options options = mock(WebDriver.Options.class);
+		WebDriver.Timeouts timeouts = mock(WebDriver.Timeouts.class);
+
+		when(remoteWebDriver.manage()).thenReturn(options);
+		when(options.timeouts()).thenReturn(timeouts);
 
 		doReturn(remoteWebDriver).when(firespottingIT).getWebDriver();
 
