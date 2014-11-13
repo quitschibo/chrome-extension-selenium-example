@@ -101,6 +101,9 @@ public class ChromeExtension {
 	 * @param page The page we want to navigate to e.g. options.html
 	 */
 	public void navigateTo(String page) {
+		// this is just a trick for preventing previous visited sites from loading javascript stuff a long time
+		driver.get("chrome://version/");
+
 		driver.get(EXTENSION_URL_PROTOCOL + getId() + "/" + page);
 	}
 
