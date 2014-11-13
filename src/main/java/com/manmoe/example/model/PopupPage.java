@@ -1,7 +1,10 @@
 package com.manmoe.example.model;
 
+import com.google.common.base.Predicate;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.concurrent.TimeUnit;
 
@@ -94,6 +97,13 @@ public class PopupPage extends ChromeExtension {
 	 * This method is for waiting until the site is loaded.
 	 */
 	public void waitUntilLoaded() {
-		getDriver().manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
+		WebDriverWait driverWait = new WebDriverWait(getDriver(), 30L);
+
+		driverWait.until(new Predicate<WebDriver>() {
+			@Override
+			public boolean apply(org.openqa.selenium.WebDriver webDriver) {
+				return getDriver().findElementByClassName("ready") != null;
+			}
+		});
 	}
 }
