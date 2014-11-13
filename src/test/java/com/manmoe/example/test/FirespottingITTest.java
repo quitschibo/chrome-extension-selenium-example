@@ -2,6 +2,7 @@ package com.manmoe.example.test;
 
 import com.google.common.base.Predicate;
 import com.manmoe.example.model.IssuesPage;
+import com.manmoe.example.model.OptionsPage;
 import com.manmoe.example.model.PopupPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -35,6 +36,8 @@ public class FirespottingITTest {
 
 	private IssuesPage issuesPage = mock(IssuesPage.class);
 
+	private OptionsPage optionsPage = mock(OptionsPage.class);
+
 	/**
 	 *  Method for setting up the test environment.
 	 */
@@ -43,6 +46,7 @@ public class FirespottingITTest {
 		this.firespottingIT = spy(new FirespottingIT());
 		this.firespottingIT.popupPage = this.popupPage;
 		this.firespottingIT.issuesPage = this.issuesPage;
+		this.firespottingIT.optionsPage = this.optionsPage;
 	}
 
 	/**
@@ -190,6 +194,9 @@ public class FirespottingITTest {
 
 		// popupPage.getTitle()
 		when(popupPage.getTitle()).thenReturn("Options");
+
+		// optionsPage.waitUntilLoaded();
+		doNothing().when(optionsPage).waitUntilLoaded();
 
 		// run test method
 		firespottingIT.testOpenOptions();

@@ -2,6 +2,7 @@ package com.manmoe.example.test;
 
 import com.google.common.base.Predicate;
 import com.manmoe.example.model.IssuesPage;
+import com.manmoe.example.model.OptionsPage;
 import com.manmoe.example.model.PopupPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -46,6 +47,11 @@ public class FirespottingIT extends AbstractChromeExtensionTest {
 	protected IssuesPage issuesPage;
 
 	/**
+	 * Options page testmodel
+	 */
+	protected OptionsPage optionsPage;
+
+	/**
 	 * We set it initially == true, so we can &= each test method result.
 	 */
 	protected boolean testResult = true;
@@ -65,6 +71,7 @@ public class FirespottingIT extends AbstractChromeExtensionTest {
 
 		this.popupPage = new PopupPage(testDriver, EXTENSION_NAME_FROM_MANIFEST);
 		this.issuesPage = new IssuesPage(testDriver, EXTENSION_NAME_FROM_MANIFEST);
+		this.optionsPage = new OptionsPage(testDriver, EXTENSION_NAME_FROM_MANIFEST);
 	}
 
 	/**
@@ -193,7 +200,7 @@ public class FirespottingIT extends AbstractChromeExtensionTest {
 
 		popupPage.switchToNewTab();
 
-		assertEquals(popupPage.getTitle(), "Options");
+		optionsPage.waitUntilLoaded();
 
 		popupPage.getDriver().close();
 		popupPage.switchToFirstTab();

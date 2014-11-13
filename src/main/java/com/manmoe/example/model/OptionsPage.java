@@ -1,8 +1,11 @@
 package com.manmoe.example.model;
 
+import com.google.common.base.Predicate;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
  * This model is for testing the firespotting options page.
@@ -11,6 +14,7 @@ import org.openqa.selenium.support.ui.Select;
  */
 public class OptionsPage extends ChromeExtension {
 	private static final String PAGE_NAME = "options.html";
+	private static final String PAGE_TITLE = "Options";
 
 	/**
 	 * We need the webdriver and the name of the extension you want to test. Have a look in your manifest, if you are
@@ -63,5 +67,19 @@ public class OptionsPage extends ChromeExtension {
 	 */
 	protected Select createSelectByWebElement(WebElement element) {
 		return new Select(element);
+	}
+
+	/**
+	 * This method is for waiting until the site is loaded.
+	 */
+	public void waitUntilLoaded() {
+		WebDriverWait driverWait = new WebDriverWait(getDriver(), 30L);
+
+		driverWait.until(new Predicate<WebDriver>() {
+			@Override
+			public boolean apply(org.openqa.selenium.WebDriver webDriver) {
+				return getDriver().getTitle().startsWith(PAGE_TITLE);
+			};
+		});
 	}
 }
