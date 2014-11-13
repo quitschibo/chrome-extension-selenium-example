@@ -15,6 +15,7 @@ import org.testng.annotations.Test;
 import us.monoid.web.Resty;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
@@ -68,6 +69,8 @@ public class FirespottingIT extends AbstractChromeExtensionTest {
 	@BeforeClass
 	public void setUp() {
 		RemoteWebDriver testDriver = getWebDriver();
+
+		testDriver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 
 		this.popupPage = new PopupPage(testDriver, EXTENSION_NAME_FROM_MANIFEST);
 		this.issuesPage = new IssuesPage(testDriver, EXTENSION_NAME_FROM_MANIFEST);
