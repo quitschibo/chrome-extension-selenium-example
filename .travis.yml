@@ -17,7 +17,7 @@ matrix:
       script: mvn verify
       env:
         - PLATFORM=WIN8
-        - VERSION=38
+        - VERSION=37
 
 notifications:
   slack: manmoe:P1jnCg1yRXtcJN0iLRN9tHWF
