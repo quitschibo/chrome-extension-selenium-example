@@ -1,6 +1,7 @@
 package com.manmoe.example.model;
 
 import com.google.common.base.Predicate;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -102,7 +103,7 @@ public class PopupPage extends ChromeExtension {
 		driverWait.until(new Predicate<WebDriver>() {
 			@Override
 			public boolean apply(org.openqa.selenium.WebDriver webDriver) {
-				return getDriver().findElementByClassName("ready") != null;
+				return getDriver().findElements(By.className("ready")).size() > 0;
 			}
 		});
 	}
