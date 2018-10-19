@@ -1,13 +1,10 @@
 package com.manmoe.example.model;
 
-import com.google.common.base.Predicate;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.util.concurrent.TimeUnit;
 
 /**
  * This model is for testing the firespotting popup page.
@@ -42,8 +39,8 @@ public class PopupPage extends ChromeExtension {
 	 *
 	 * @return The title of the popup page.
 	 */
-	public String getTitle() {
-		return getDriver().findElementById("title").getText();
+	public WebElement getTitle() {
+		return getDriver().findElementById("title");
 	}
 
 	/**
@@ -100,11 +97,6 @@ public class PopupPage extends ChromeExtension {
 	public void waitUntilLoaded() {
 		WebDriverWait driverWait = new WebDriverWait(getDriver(), 30L);
 
-		driverWait.until(new Predicate<WebDriver>() {
-			@Override
-			public boolean apply(org.openqa.selenium.WebDriver webDriver) {
-				return getDriver().findElements(By.className("ready")).size() > 0;
-			}
-		});
+		driverWait.until(ExpectedConditions.presenceOfElementLocated(By.className("ready")));
 	}
 }

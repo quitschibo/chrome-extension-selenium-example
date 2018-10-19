@@ -1,5 +1,6 @@
 package com.manmoe.example.test;
 
+import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.manmoe.example.model.IssuesPage;
 import com.manmoe.example.model.OptionsPage;
@@ -8,6 +9,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.remote.SessionId;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.ITestResult;
 import org.testng.annotations.BeforeMethod;
@@ -141,7 +143,10 @@ public class FirespottingITTest {
 
 	@Test
 	public void testPopupTest() {
-		when(popupPage.getTitle()).thenReturn("Firespotting!");
+		WebElement titleMock = mock(WebElement.class);
+
+		when(popupPage.getTitle()).thenReturn(titleMock);
+		when(titleMock.getText()).thenReturn("Firespotting!");
 
 		firespottingIT.testPopup();
 
@@ -171,12 +176,14 @@ public class FirespottingITTest {
 	}
 
 	@Test
-	public void testRefreshTest() throws InterruptedException {
+	public void testRefreshTest() {
 		WebElement refreshLink = mock(WebElement.class);
 		WebDriverWait driverWait = mock(WebDriverWait.class);
+		WebElement titleMock = mock(WebElement.class);
 
 		when(popupPage.getRefreshLink()).thenReturn(refreshLink);
-		when(popupPage.getTitle()).thenReturn("Firespotting!");
+		when(popupPage.getTitle()).thenReturn(titleMock);
+		when(titleMock.getText()).thenReturn("Firespotting!");
 		doReturn(driverWait).when(firespottingIT).createWebDriverWait(any(WebDriver.class), eq(FirespottingIT.TIME_TO_WAIT_FOR_REFRESH));
 
 		// run test method
@@ -184,13 +191,14 @@ public class FirespottingITTest {
 
 		verify(popupPage, atLeastOnce()).open();
 		verify(refreshLink, atLeastOnce()).click();
-		verify(driverWait, atLeastOnce()).until(any(Predicate.class));
+		verify(driverWait, atLeastOnce()).until(any(Function.class));
 	}
 
 	@Test
 	public void testOpenOptionsTest() {
 		RemoteWebDriver webDriverMock = mock(RemoteWebDriver.class);
 		WebElement optionsLinkMock = mock(WebElement.class);
+		WebElement titleMock = mock(WebElement.class);
 
 		// popupPage.getDriver().navigate().refresh();
 		when(popupPage.getDriver()).thenReturn(webDriverMock);
@@ -199,7 +207,10 @@ public class FirespottingITTest {
 		when(popupPage.getOptionsLink()).thenReturn(optionsLinkMock);
 
 		// popupPage.getTitle()
-		when(popupPage.getTitle()).thenReturn("Options");
+		when(popupPage.getTitle()).thenReturn(titleMock);
+
+		// popupPage.getTitle().getText()
+		when(titleMock.getText()).thenReturn("title");
 
 		// optionsPage.waitUntilLoaded();
 		doNothing().when(optionsPage).waitUntilLoaded();

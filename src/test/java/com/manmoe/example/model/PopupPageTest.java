@@ -63,7 +63,7 @@ public class PopupPageTest {
 		when(webElement.getText()).thenReturn(testText);
 
 		// run test method
-		String result = popupPage.getTitle();
+		String result = popupPage.getTitle().getText();
 
 		assertEquals(result, testText);
 	}

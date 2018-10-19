@@ -1,8 +1,7 @@
 package com.manmoe.example.model;
 
-import com.google.common.base.Predicate;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
@@ -34,11 +33,6 @@ public class IssuesPage extends ChromeExtension {
     public void waitUntilLoaded() {
         WebDriverWait driverWait = new WebDriverWait(getDriver(), 30L);
 
-        driverWait.until(new Predicate<WebDriver>() {
-            @Override
-            public boolean apply(org.openqa.selenium.WebDriver webDriver) {
-                return getDriver().getTitle().startsWith(PAGE_TITLE);
-            };
-        });
+        driverWait.until(ExpectedConditions.titleIs(PAGE_TITLE));
     }
 }
