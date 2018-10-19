@@ -1,11 +1,11 @@
 package com.manmoe.example.test;
 
-import com.google.common.base.Predicate;
 import com.manmoe.example.model.IssuesPage;
 import com.manmoe.example.model.OptionsPage;
 import com.manmoe.example.model.PopupPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
@@ -18,7 +18,6 @@ import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertTrue;
 import static us.monoid.web.Resty.content;
 import static us.monoid.web.Resty.put;
@@ -141,7 +140,7 @@ public class FirespottingIT extends AbstractChromeExtensionTest {
 		popupPage.open();
 
 		// check title
-		assertEquals(popupPage.getTitle(), "Firespotting!");
+		assertEquals(popupPage.getTitle().getText(), "Firespotting!");
 	}
 
 	/**
@@ -171,13 +170,9 @@ public class FirespottingIT extends AbstractChromeExtensionTest {
 
 		WebDriverWait driverWait = createWebDriverWait(popupPage.getDriver(), TIME_TO_WAIT_FOR_REFRESH);
 
-		driverWait.until(new Predicate<WebDriver>() {
-			@Override
-			public boolean apply(org.openqa.selenium.WebDriver webDriver) {
-				return popupPage.getTitle().equals("Firespotting!");
-			}
-		});
-		assertEquals(popupPage.getTitle(), "Firespotting!");
+		driverWait.until(ExpectedConditions.textToBePresentInElement(popupPage.getTitle(), "title"));
+
+		assertEquals(popupPage.getTitle().getText(), "Firespotting!");
 	}
 
 	/**
